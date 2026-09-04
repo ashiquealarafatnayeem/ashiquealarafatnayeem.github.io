@@ -4,225 +4,495 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Md. Ashique Al Arafat Nayeem | Portfolio</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Professional Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body, html { width: 100%; height: 100%; color: #fff; background-color: #050505; overflow-x: hidden; scroll-behavior: smooth;}
-        
-        /* 3D Background Container */
-        #vanta-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
-        /* Glassmorphism Styling */
-        .glass-panel {
-            background: rgba(15, 15, 20, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        /* ----------------------------------------------------
+           1. MODERN, PROFESSIONAL CSS RESET & BASE
+        ----------------------------------------------------- */
+        :root {
+            --bg-color: #050a15;
+            --surface-color: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.06);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent-blue: #3b82f6;
+            --accent-cyan: #06b6d4;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
-
-        /* Header / Hero */
-        header { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; text-align: left; }
-        .hero-title { font-size: 3.5rem; font-weight: 700; background: -webkit-linear-gradient(#00f2fe, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px;}
-        .hero-subtitle { font-size: 1.5rem; color: #ccc; margin-bottom: 20px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        .btn { display: inline-block; padding: 12px 30px; background: rgba(79, 172, 254, 0.2); border: 1px solid #4facfe; color: #4facfe; text-decoration: none; border-radius: 30px; font-weight: 600; transition: all 0.3s ease; backdrop-filter: blur(5px);}
-        .btn:hover { background: #4facfe; color: #000; box-shadow: 0 0 15px #4facfe; }
+        body, html { 
+            width: 100%; color: var(--text-main); font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth;
+        }
 
-        /* Section Typography */
-        h2 { font-size: 2.2rem; margin-bottom: 25px; color: #fff; border-bottom: 2px solid #4facfe; display: inline-block; padding-bottom: 5px; }
-        p, li { color: #d3d3d3; line-height: 1.7; font-size: 1.05rem; }
-        ul { margin-left: 20px; margin-top: 10px; }
-        li { margin-bottom: 8px; }
+        /* Subtle Background Grain / Grid */
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+        }
 
-        /* Grid for Cards */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-        /* 3D Tilt Cards */
+        /* ----------------------------------------------------
+           2. CENTERED HERO SECTION
+        ----------------------------------------------------- */
+        .hero {
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            padding: 100px 0 60px 0;
+        }
+
+        .profile-container {
+            position: relative; margin-bottom: 24px;
+        }
+        
+        .profile-img {
+            width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 4px rgba(59, 130, 246, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .profile-img:hover { transform: scale(1.02); }
+
+        .hero h1 {
+            font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px;
+            background: linear-gradient(to right, #fff, #a5b4fc);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: 1.2rem; font-weight: 400; color: var(--text-muted); margin-bottom: 24px; max-width: 700px;
+        }
+        .hero h2 strong { color: var(--text-main); font-weight: 500;}
+
+        .hero p { max-width: 700px; color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+
+        .btn-group { display: flex; gap: 16px; justify-content: center; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; 
+            border-radius: 8px; font-weight: 500; font-size: 0.95rem; text-decoration: none; transition: 0.2s;
+        }
+        .btn-primary { background: var(--text-main); color: var(--bg-color); }
+        .btn-primary:hover { background: #d1d5db; }
+        .btn-secondary { background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border-color); }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+        /* 3D Canvas Window */
+        .canvas-window {
+            width: 100%; height: 400px; margin-top: 60px; border-radius: 16px; 
+            border: 1px solid var(--border-color); background: rgba(0,0,0,0.3);
+            overflow: hidden; position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        #three-canvas { width: 100%; height: 100%; cursor: grab; }
+        #three-canvas:active { cursor: grabbing; }
+        .canvas-label {
+            position: absolute; bottom: 16px; left: 16px; font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem; color: var(--text-muted); background: rgba(0,0,0,0.6);
+            padding: 4px 10px; border-radius: 4px; pointer-events: none; border: 1px solid var(--border-color);
+        }
+
+        /* ----------------------------------------------------
+           3. PROFESSIONAL SECTIONS & CARDS
+        ----------------------------------------------------- */
+        section { padding: 60px 0; border-top: 1px solid var(--border-color); }
+        
+        .section-header { margin-bottom: 40px; display: flex; align-items: center; gap: 12px;}
+        .section-header h3 { font-size: 1.75rem; font-weight: 600; color: var(--text-main); }
+        .section-header i { color: var(--accent-blue); font-size: 1.5rem; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+
         .card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 25px;
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
+            background: var(--surface-color); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 32px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .card h3 { font-size: 1.3rem; color: #4facfe; margin-bottom: 10px; transform: translateZ(30px); }
-        .card p, .card ul { transform: translateZ(20px); }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.15);}
+        
+        .card h4 { font-size: 1.2rem; font-weight: 600; margin-bottom: 12px; color: var(--text-main); }
+        .status { display: inline-block; font-size: 0.8rem; padding: 4px 10px; background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-radius: 20px; margin-bottom: 16px; font-weight: 500;}
+        
+        .card p, .card li { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; }
+        ul { list-style: none; }
+        .card li { display: flex; align-items: flex-start; gap: 10px; }
+        .card li::before { content: "•"; color: var(--accent-blue); font-weight: bold; }
+        .card li strong { color: var(--text-main); font-weight: 500;}
 
-        .tag { display: inline-block; background: rgba(79, 172, 254, 0.15); border: 1px solid rgba(79, 172, 254, 0.3); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; margin: 4px; color: #00f2fe;}
+        /* Tags */
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+        .tag {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            padding: 6px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);
+            border-radius: 6px; color: var(--text-main);
+        }
 
-        /* Contact */
-        .contact-links a { color: #4facfe; text-decoration: none; margin-right: 20px; font-weight: 600; }
-        .contact-links a:hover { text-decoration: underline; }
+        /* Scrollable List for Achievements */
+        .scrollable { max-height: 280px; overflow-y: auto; padding-right: 12px; }
+        .scrollable::-webkit-scrollbar { width: 4px; }
+        .scrollable::-webkit-scrollbar-track { background: transparent; }
+        .scrollable::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+        footer { text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); }
 
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .grid-2 { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 3D Background Element -->
-    <div id="vanta-canvas"></div>
+    <div class="bg-grid"></div>
 
     <div class="container">
-        <!-- Hero Section -->
-        <header>
-            <div class="glass-panel" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
-                <h1 class="hero-title">Md. Ashique Al Arafat Nayeem</h1>
-                <p class="hero-subtitle">EEE Undergraduate at BUET | Researcher | EdTech Founder</p>
-                <p style="margin-bottom: 25px; max-width: 800px;">
-                    Passionate Educator and EEE Undergraduate with a proven track record in academic excellence and public speaking. 
-                    I combine my engineering background, Olympiad-level subject mastery, and digital visualization techniques to simplify complex concepts.
-                </p>
-                <a href="#research" class="btn">View My Work</a>
-                <a href="#contact" class="btn" style="margin-left: 10px;">Contact Me</a>
+        
+        <!-- HERO SECTION -->
+        <header class="hero">
+            <div class="profile-container">
+                <!-- Ensure your photo is named exactly profile.jpg in the same folder -->
+                <img src="profile.jpg" alt="Ashique Al Arafat Nayeem" class="profile-img" onerror="this.src='https://via.placeholder.com/160/111827/3b82f6?text=Photo'">
+            </div>
+            
+            <h1>Md. Ashique Al Arafat Nayeem</h1>
+            <h2>
+                <strong>EEE Undergraduate @ BUET</strong> &nbsp;|&nbsp; Content Director @ JICA Grassroot &nbsp;|&nbsp; ML Researcher
+            </h2>
+            <p>
+                Bridging electrical engineering, Olympiad-level analytical problem solving, and artificial intelligence. Specializing in biomedical signal processing, optoelectronics, and technical education.
+            </p>
+            
+            <div class="btn-group">
+                <a href="#research" class="btn btn-primary"><i class="fa-solid fa-microscope"></i> View Research</a>
+                <a href="#contact" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i> Contact Me</a>
+            </div>
+
+            <!-- 3D EEE & ML Visualization Window -->
+            <div class="canvas-window">
+                <div id="three-canvas"></div>
+                <div class="canvas-label">Interactive: Neural EEG Signal & Processor (Drag to Rotate)</div>
             </div>
         </header>
 
-        <!-- Current Research Section -->
-        <section id="research" class="glass-panel">
-            <h2>Current Research</h2>
-            <div class="card" data-tilt data-tilt-max="10">
-                <h3>PCF SPR Biosensor</h3>
-                <p><strong>Status:</strong> Ongoing / Pre-Publication</p>
-                <p>Currently conducting advanced research on Photonic Crystal Fiber Surface Plasmon Resonance (PCF SPR) biosensors. Exploring highly sensitive optical detection methods utilizing computational physics, numerical modeling, and electromagnetics.</p>
-                <br>
-                <span class="tag">COMSOL Multiphysics</span>
-                <span class="tag">MATLAB</span>
-                <span class="tag">Optoelectronics</span>
+        <!-- RESEARCH SECTION -->
+        <section id="research">
+            <div class="section-header">
+                <i class="fa-solid fa-network-wired"></i>
+                <h3>Current Research</h3>
             </div>
-        </section>
-
-        <!-- Experience Section -->
-        <section class="glass-panel">
-            <h2>Experience & Leadership</h2>
             <div class="grid-2">
-                <div class="card" data-tilt data-tilt-max="10">
-                    <h3>EdTech & Leadership</h3>
-                    <ul>
-                        <li><strong>Contents Director</strong> at JICA Grassroot Project</li>
-                        <li><strong>Founder</strong> of With Scienceloger (Online Educational Platform leveraging digital visualization)</li>
-                        <li><strong>Ex-President</strong> of Brainiacs Club (2020-21)</li>
-                    </ul>
+                <div class="card">
+                    <h4>Alzheimer's Detection via EEG & ML</h4>
+                    <span class="status">Ongoing Research</span>
+                    <p>Developing advanced Machine Learning models for the early detection of Alzheimer's disease through the analysis and processing of EEG signals. Bridging biomedical signal processing and AI for non-invasive diagnostic tools.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Deep Learning</span>
+                        <span class="tag">Signal Processing</span>
+                    </div>
                 </div>
-                <div class="card" data-tilt data-tilt-max="10">
-                    <h3>Global Teaching Experience</h3>
-                    <p><strong>4+ Years Tutoring Experience</strong></p>
-                    <p>Delivering engaging, clear, and confident lessons internationally:</p>
-                    <ul>
-                        <li>Canada (Grade 7-10)</li>
-                        <li>Kuwait (Grade 9-11)</li>
-                        <li>Italy & Myanmar</li>
-                    </ul>
+
+                <div class="card">
+                    <h4>PCF SPR Biosensor</h4>
+                    <span class="status">Pre-Publication</span>
+                    <p>Conducting advanced research on Photonic Crystal Fiber Surface Plasmon Resonance (PCF SPR) biosensors. Exploring highly sensitive optical detection methods utilizing computational physics and electromagnetics.</p>
+                    <div class="tags">
+                        <span class="tag">COMSOL</span>
+                        <span class="tag">MATLAB</span>
+                        <span class="tag">Optoelectronics</span>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section class="glass-panel">
-            <h2>Technical Skills</h2>
-            <div style="margin-bottom: 20px;">
-                <span class="tag">C/C++</span>
-                <span class="tag">Python</span>
-                <span class="tag">MATLAB</span>
-                <span class="tag">COMSOL</span>
-                <span class="tag">AutoCAD</span>
-                <span class="tag">Arduino</span>
-                <span class="tag">PSpice</span>
-                <span class="tag">Machine Learning / AI</span>
-                <span class="tag">Manim (Animation)</span>
+        <!-- EDUCATION & EXPERIENCE -->
+        <section>
+            <div class="section-header">
+                <i class="fa-solid fa-briefcase"></i>
+                <h3>Education & Experience</h3>
             </div>
-            <h2>Creative & Soft Skills</h2>
-            <div>
-                <span class="tag">Adobe Premiere Pro & After Effects</span>
-                <span class="tag">Photoshop & Illustrator</span>
-                <span class="tag">Public Speaking & Debate</span>
-                <span class="tag">Research & Mentoring</span>
-            </div>
-        </section>
-
-        <!-- Achievements Section -->
-        <section class="glass-panel">
-            <h2>Select Achievements</h2>
             <div class="grid-2">
-                <div class="card" data-tilt data-tilt-max="10">
-                    <h3>Debate Championships</h3>
+                <div class="card">
+                    <h4>Academic Background</h4>
                     <ul>
-                        <li><strong>Champion:</strong> 1st Inter College National Debate Competition 2021 (organized by BTV)</li>
-                        <li><strong>Champion:</strong> NDF BD Rajshahi Zone 1st Virtual Debate Championship</li>
-                        <li><strong>Runner-up:</strong> Khulna Divisional Debate Competition 2020</li>
-                        <li>Served as a Judge at Awaaz Cultural Event</li>
+                        <li><strong>BUET:</strong> BSc. Electrical and Electronic Engineering (Current CGPA: 3.60)</li>
+                        <li><strong>Notre Dame College, Dhaka:</strong> HSC - 2022 (GPA: 5.00)</li>
+                        <li><strong>Bogura Cantonment Public School:</strong> SSC - 2020 (GPA: 5.00)</li>
                     </ul>
                 </div>
-                <div class="card" data-tilt data-tilt-max="10">
-                    <h3>Science & Math Olympiads</h3>
+                <div class="card">
+                    <h4>EdTech & Leadership</h4>
                     <ul>
-                        <li><strong>Winner:</strong> Bangladesh Mathematical Olympiad (Regional 2019 & 2021)</li>
-                        <li><strong>1st Position:</strong> Bangladesh Physics Olympiad 2021 (Regional)</li>
-                        <li><strong>Winner:</strong> National Earth Olympiad 2020 (Regional)</li>
-                        <li><em>Plus 10+ additional awards in IQ, Biology, and General Knowledge competitions.</em></li>
+                        <li><strong>Content Director:</strong> JICA Grassroot Project</li>
+                        <li><strong>Founder:</strong> With Scienceloger (Online Platform)</li>
+                        <li><strong>Ex-President:</strong> Brainiacs Club (2020-21)</li>
+                        <li><strong>Global Tutor (4+ yrs):</strong> Teaching Math/Physics internationally (Canada, Kuwait, Italy, Myanmar).</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="glass-panel">
-            <h2>Let's Connect</h2>
-            <p>I am always open to discussing research collaborations, ed-tech opportunities, or engineering projects.</p>
-            <br>
-            <div class="contact-links">
-                <a href="mailto:ashiquealarafat2003@gmail.com">✉️ ashiquealarafat2003@gmail.com</a>
-                <a href="tel:+8801845919949">📞 +880 1845919949</a>
-                <span>📍 Lalbagh, Dhaka</span>
+        <!-- SKILLS MATRIX -->
+        <section>
+            <div class="section-header">
+                <i class="fa-solid fa-layer-group"></i>
+                <h3>Skills Matrix</h3>
+            </div>
+            <div class="grid-3">
+                <div class="card">
+                    <h4>Engineering & Code</h4>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">C/C++</span>
+                        <span class="tag">MATLAB</span>
+                        <span class="tag">AutoCAD</span>
+                        <span class="tag">COMSOL</span>
+                        <span class="tag">PSpice</span>
+                        <span class="tag">Arduino</span>
+                        <span class="tag">ML / AI</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4>Creative & Media</h4>
+                    <div class="tags">
+                        <span class="tag">Manim Animation</span>
+                        <span class="tag">Premiere Pro</span>
+                        <span class="tag">After Effects</span>
+                        <span class="tag">Photoshop</span>
+                        <span class="tag">Illustrator</span>
+                        <span class="tag">Canva</span>
+                        <span class="tag">MS Office Suite</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h4>Professional Skills</h4>
+                    <div class="tags">
+                        <span class="tag">Public Speaking</span>
+                        <span class="tag">Debate</span>
+                        <span class="tag">Research</span>
+                        <span class="tag">Mentoring</span>
+                        <span class="tag">Event Management</span>
+                        <span class="tag">HR & Comm.</span>
+                        <span class="tag">Creative Writing</span>
+                        <span class="tag">Poster Presentation</span>
+                    </div>
+                </div>
             </div>
         </section>
-        
-        <p style="text-align: center; color: #666; margin-bottom: 40px; font-size: 0.9rem;">
-            &copy; 2026 Md. Ashique Al Arafat Nayeem.
-        </p>
+
+        <!-- ACHIEVEMENTS & EXTRACURRICULARS -->
+        <section id="achievements">
+            <div class="section-header">
+                <i class="fa-solid fa-award"></i>
+                <h3>Achievements & Extra-Curriculars</h3>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <h4>Olympiads (20+)</h4>
+                    <div class="scrollable">
+                        <ul>
+                            <li><strong>Winner:</strong> Regional Round of Bangladesh Mathematical Olympiad (2019 & 2021).</li>
+                            <li><strong>1st Position:</strong> Bangladesh Physics Olympiad 2021 (Regional, Secondary).</li>
+                            <li><strong>Winner:</strong> National Earth Olympiad 2020 (Regional).</li>
+                            <li><strong>Winner (Secondary):</strong> Al-Arafah Islami Bank 6th BdJSO 2020.</li>
+                            <li><strong>Winner:</strong> Regional General Knowledge Olympiad 2020.</li>
+                            <li><strong>1st Position:</strong> Math, Physics & IQ in 1st BNCD Online Contest 2020.</li>
+                            <li><strong>1st Position (IQ):</strong> SAGC 5th Science Festival 2020-21.</li>
+                            <li><strong>2nd Position:</strong> Sheikh Russel Smriti Quiz & Bangabandhu Memorial Quiz.</li>
+                            <li><strong>1st Runner-up:</strong> JN Islam Mega Fest 2021 (Math) & Boson Math/IQ 2020.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Debate, MUN & Workshops</h4>
+                    <div class="scrollable">
+                        <ul>
+                            <li><strong>Champion:</strong> 1st Inter College National Debate 2021 (BTV).</li>
+                            <li><strong>Champion:</strong> NDF BD Rajshahi Zone 1st Virtual Debate.</li>
+                            <li><strong>Runner-up:</strong> Khulna Divisional Debate 2020 & Juktir Poshora 2021.</li>
+                            <li><strong>Delegate:</strong> Pundranagar International Diplomatic Symposium 2020 (MUN).</li>
+                            <li><strong>Workshop:</strong> "Intro to Realm of IoT with ESP32" - IEEE Robotics & Automation BUET (2024).</li>
+                            <li><strong>Festival:</strong> NDF BD Dhaka District Debate Carnival 2019 & Rajshahi 2018.</li>
+                            <li><strong>Workshop:</strong> Astronomy Workshop (Higgsino Science Society).</li>
+                            <li><strong>Camp:</strong> 10 Days Literature Camp (Onnonya Proyash).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 16px;">Let's Connect</h3>
+                <p style="margin-bottom: 24px;">Open to discussing research collaborations, ed-tech opportunities, or engineering projects.</p>
+                <div style="display: flex; flex-direction: column; gap: 12px; align-items: center;">
+                    <a href="mailto:ashiquealarafat2003@gmail.com" style="color: var(--accent-blue); text-decoration: none; font-weight: 500;"><i class="fa-solid fa-envelope"></i> ashiquealarafat2003@gmail.com</a>
+                    <span style="color: var(--text-muted);"><i class="fa-solid fa-phone"></i> +880 1845919949</span>
+                    <span style="color: var(--text-muted);"><i class="fa-solid fa-location-dot"></i> Lalbagh, Dhaka, Bangladesh</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Md. Ashique Al Arafat Nayeem. Built with modern engineering.</p>
+        </footer>
     </div>
 
-    <!-- 3D Animation Scripts (Three.js, Vanta.js for Background, Vanilla-tilt for Cards) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <!-- THREE.JS IMPORTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     
     <script>
-        // Initialize 3D Network Background
-        VANTA.NET({
-            el: "#vanta-canvas",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            color: 0x4facfe,
-            backgroundColor: 0x050505,
-            points: 12.00,
-            maxDistance: 22.00,
-            spacing: 18.00
-        });
+        // --------------------------------------------------------
+        // ADVANCED 3D EEE PROCESSOR & DATA WAVE
+        // --------------------------------------------------------
+        const container = document.getElementById('three-canvas');
+        const scene = new THREE.Scene();
+        
+        // Camera setup
+        const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.set(5, 4, 5);
 
-        // Initialize 3D Tilt on Cards
-        VanillaTilt.init(document.querySelectorAll(".card"), {
-            max: 10,
-            speed: 400,
-            glare: true,
-            "max-glare": 0.1,
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // 1. LIGHTING (Crucial for professional 3D look)
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0x06b6d4, 2);
+        directionalLight.position.set(5, 10, 5);
+        scene.add(directionalLight);
+        
+        const pointLight = new THREE.PointLight(0x3b82f6, 3, 10);
+        pointLight.position.set(0, 2, 0);
+        scene.add(pointLight);
+
+        // 2. THE SIGNAL WAVE (EEG Representation)
+        const particleCount = 1500;
+        const waveGeo = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        
+        let i = 0;
+        const gridSize = 40; 
+        const spacing = 0.15;
+        const offset = (gridSize * spacing) / 2;
+
+        for(let x = 0; x < gridSize; x++) {
+            for(let z = 0; z < gridSize; z++) {
+                if (i >= particleCount * 3) break;
+                positions[i++] = (x * spacing) - offset;
+                positions[i++] = 0; 
+                positions[i++] = (z * spacing) - offset;
+            }
+        }
+        waveGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        
+        const waveMat = new THREE.PointsMaterial({ 
+            color: 0x3b82f6, size: 0.03, transparent: true, opacity: 0.6
+        });
+        const dataWave = new THREE.Points(waveGeo, waveMat);
+        scene.add(dataWave);
+
+        // 3. THE SEMICONDUCTOR PROCESSOR (Professional Build)
+        const chipGroup = new THREE.Group();
+
+        // A. Silicon Base Board
+        const boardGeo = new THREE.BoxGeometry(1.4, 0.08, 1.4);
+        const boardMat = new THREE.MeshStandardMaterial({ 
+            color: 0x111111, roughness: 0.7, metalness: 0.3 
+        });
+        const board = new THREE.Mesh(boardGeo, boardMat);
+        chipGroup.add(board);
+
+        // B. CPU Core (Emissive Center)
+        const coreGeo = new THREE.BoxGeometry(0.6, 0.1, 0.6);
+        const coreMat = new THREE.MeshStandardMaterial({ 
+            color: 0x000000, emissive: 0x06b6d4, emissiveIntensity: 0.6, wireframe: true
+        });
+        const core = new THREE.Mesh(coreGeo, coreMat);
+        core.position.y = 0.02;
+        chipGroup.add(core);
+
+        // C. Gold Metallic Pins
+        const pinMat = new THREE.MeshStandardMaterial({ 
+            color: 0xd4af37, roughness: 0.3, metalness: 1.0 
+        });
+        const pinGeo = new THREE.BoxGeometry(0.04, 0.04, 0.2);
+        
+        // Loop to add pins to the 4 edges of the chip
+        const numPins = 10;
+        const pinStart = -0.55;
+        const pinSpacing = 1.1 / (numPins - 1);
+        
+        for(let p = 0; p < numPins; p++) {
+            const pos = pinStart + (p * pinSpacing);
+            // Top/Bottom pins
+            let pinT = new THREE.Mesh(pinGeo, pinMat); pinT.position.set(pos, 0, -0.75); chipGroup.add(pinT);
+            let pinB = new THREE.Mesh(pinGeo, pinMat); pinB.position.set(pos, 0, 0.75); chipGroup.add(pinB);
+            // Left/Right pins (rotate geometry)
+            let pinL = new THREE.Mesh(pinGeo, pinMat); pinL.rotation.y = Math.PI/2; pinL.position.set(-0.75, 0, pos); chipGroup.add(pinL);
+            let pinR = new THREE.Mesh(pinGeo, pinMat); pinR.rotation.y = Math.PI/2; pinR.position.set(0.75, 0, pos); chipGroup.add(pinR);
+        }
+
+        chipGroup.position.y = 1.2;
+        scene.add(chipGroup);
+
+        // 4. CONTROLS & ANIMATION
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableZoom = false; 
+        controls.enablePan = false;
+        controls.autoRotate = true;
+        controls.autoRotateSpeed = 1.0;
+
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const time = clock.getElapsedTime();
+            
+            // Animate EEG Wave
+            const posAttr = waveGeo.attributes.position;
+            const posArray = posAttr.array;
+            for(let j = 0; j < particleCount; j++) {
+                const x = posArray[j * 3];
+                const z = posArray[j * 3 + 2];
+                // Complex wave math mimicking electrical signals
+                posArray[j * 3 + 1] = Math.sin(x * 1.5 + time * 2) * 0.15 + Math.cos(z * 2 + time) * 0.15;
+            }
+            posAttr.needsUpdate = true;
+
+            // Make the CPU float slightly
+            chipGroup.position.y = 1.3 + Math.sin(time * 1.5) * 0.05;
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
         });
     </script>
 </body>
