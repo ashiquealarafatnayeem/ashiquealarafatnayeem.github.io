@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Md. Ashique Al Arafat Nayeem | Portfolio</title>
+    <title>Md. Ashique Al Arafat Nayeem | EEE Researcher</title>
     
     <!-- Professional Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +15,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     
     <script>
-        // Prevents the browser from remembering old scroll positions on refresh
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
+        if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
     </script>
 
     <style>
@@ -26,10 +23,10 @@
            1. MODERN, PROFESSIONAL CSS RESET & BASE
         ----------------------------------------------------- */
         :root {
-            --bg-color: #050a15;
+            --bg-color: #030712; /* Slightly darker, deep lab-tech blue */
             --surface-color: rgba(17, 24, 39, 0.7);
             --border-color: rgba(255, 255, 255, 0.08);
-            --text-main: #f3f4f6;
+            --text-main: #f9fafb;
             --text-muted: #9ca3af;
             --accent-blue: #3b82f6;
             --accent-cyan: #06b6d4;
@@ -45,7 +42,7 @@
 
         @keyframes fadeInPage { to { opacity: 1; } }
 
-        /* Subtle Background Grain / Grid */
+        /* LIVE ACTIVE CIRCUIT GRID */
         .bg-grid {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
             background-image: 
@@ -54,28 +51,29 @@
             background-size: 40px 40px;
             mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
             -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
+            animation: panGrid 20s linear infinite; /* Slow flow effect */
+        }
+        @keyframes panGrid {
+            0% { background-position: 0 0; }
+            100% { background-position: 40px 40px; }
         }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         /* ----------------------------------------------------
-           2. NAVIGATION BAR (MOBILE SWIPEABLE)
+           2. NAVIGATION BAR
         ----------------------------------------------------- */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: rgba(5, 10, 21, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color); 
             display: flex; justify-content: center;
         }
 
         .nav-links { 
             display: flex; gap: 8px; padding: 12px 24px;
-            overflow-x: auto; /* Allows horizontal swiping on mobile */
-            -webkit-overflow-scrolling: touch; /* Smooth iOS scrolling */
-            white-space: nowrap; /* Prevents wrapping on mobile */
+            overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap;
         }
-        
-        /* Hide scrollbar for clean app look */
         .nav-links::-webkit-scrollbar { display: none; }
         
         .nav-btn {
@@ -88,7 +86,6 @@
 
         .main-content { padding-top: 80px; padding-bottom: 60px; }
 
-        /* TAB LOGIC */
         .tab-section { display: none; }
         .tab-section.active { display: block; animation: fadeInTab 0.5s ease-out forwards; }
         @keyframes fadeInTab {
@@ -97,10 +94,8 @@
         }
 
         /* ----------------------------------------------------
-           3. HOME TAB (INTRO TOP, 3D MODEL BOTTOM)
+           3. HOME TAB (INTRO, TICKER, 3D MODEL)
         ----------------------------------------------------- */
-        
-        /* Intro Top Section */
         .intro-centered {
             text-align: center; max-width: 850px; margin: 0 auto;
             padding: 60px 10px 40px 10px;
@@ -117,16 +112,23 @@
         .profile-img:hover { transform: scale(1.02); }
 
         .intro-centered h1 {
-            font-size: 3.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px;
+            font-size: 3.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px;
             background: linear-gradient(to right, #fff, #a5b4fc);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1;
         }
 
-        .intro-centered h2 { font-size: 1.15rem; font-weight: 400; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;}
+        .intro-centered h2 { font-size: 1.15rem; font-weight: 400; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6;}
         .intro-centered h2 strong { color: var(--text-main); font-weight: 500;}
+        
+        /* Social/Academic Links */
+        .academic-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; }
+        .academic-links a { color: var(--text-muted); font-size: 1.2rem; transition: 0.3s; }
+        .academic-links a:hover { color: var(--accent-cyan); transform: translateY(-2px); }
+
         .intro-centered p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 32px; max-width: 750px;}
 
-        .btn-group { display: flex; gap: 16px; justify-content: center; margin-bottom: 20px;}
+        /* Buttons & CV */
+        .btn-group { display: flex; gap: 16px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;}
         .btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; 
             border-radius: 8px; font-weight: 500; font-size: 0.95rem; text-decoration: none; 
@@ -136,22 +138,42 @@
         .btn-primary:hover { background: #d1d5db; }
         .btn-secondary { background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border-color); }
         .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+        .btn-outline-cyan { background: transparent; color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
+        .btn-outline-cyan:hover { background: rgba(6, 182, 212, 0.1); }
 
-        /* 3D Model Bottom Section */
+        /* LIVE RESEARCH DOMAIN TICKER */
+        .ticker-wrap {
+            width: 100%; overflow: hidden; background: rgba(255,255,255,0.02); 
+            border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);
+            padding: 12px 0; margin-bottom: 20px;
+        }
+        .ticker {
+            display: flex; width: max-content;
+            animation: tickerScroll 20s linear infinite;
+        }
+        .ticker-item {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent-blue);
+            padding: 0 30px; letter-spacing: 1px; text-transform: uppercase;
+        }
+        @keyframes tickerScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* 3D Splash */
         .splash-screen {
-            width: 100%; height: 500px; /* Fixed height handles mobile better */
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            position: relative; border-top: 1px solid rgba(255,255,255,0.03); margin-top: 20px;
+            width: 100%; height: 450px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            position: relative; 
         }
         #three-canvas { width: 100%; height: 100%; cursor: grab; }
         #three-canvas:active { cursor: grabbing; }
         .canvas-label {
             position: absolute; bottom: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; 
-            color: rgba(255, 255, 255, 0.4); pointer-events: none; letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.3); pointer-events: none; letter-spacing: 2px;
         }
 
         /* ----------------------------------------------------
-           4. PROFESSIONAL SECTIONS & CARDS
+           4. RESEARCHER-CENTRIC CARDS
         ----------------------------------------------------- */
         .section-header { margin-bottom: 30px; display: flex; align-items: center; gap: 12px;}
         .section-header h3 { font-size: 1.75rem; font-weight: 600; color: var(--text-main); }
@@ -168,11 +190,12 @@
         .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.15);}
         
         .card h4 { font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; color: var(--text-main); display: flex; align-items: center; gap: 10px;}
-        .card h4 i { color: var(--accent-cyan); font-size: 1.1rem; }
         
-        .status { display: inline-block; font-size: 0.8rem; padding: 4px 10px; background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-radius: 20px; margin-bottom: 16px; font-weight: 500;}
+        /* Academic Abstract Formatting inside Cards */
+        .abstract-section { margin-bottom: 12px; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;}
+        .abstract-section strong { color: var(--text-main); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;}
         
-        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px; }
+        .status { display: inline-block; font-size: 0.75rem; padding: 4px 10px; background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); border-radius: 20px; margin-bottom: 20px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;}
         
         .card ul { list-style: none; padding: 0; margin: 0; }
         .card li { position: relative; padding-left: 22px; margin-bottom: 14px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
@@ -180,7 +203,7 @@
         .card li strong { color: var(--text-main); font-weight: 500;}
 
         /* Tags */
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);}
         .tag {
             font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; padding: 8px 12px; 
             background: rgba(255,255,255,0.06); border: 1px solid var(--border-color); border-radius: 6px; 
@@ -191,30 +214,16 @@
 
         footer { text-align: center; padding: 20px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 40px;}
 
-        /* ----------------------------------------------------
-           5. MOBILE / PHONE OPTIMIZATION RULES
-        ----------------------------------------------------- */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
-            .nav-links { justify-content: flex-start; padding: 12px 16px; } /* Ensures swipeability starts at edge */
-            .main-content { padding-top: 60px; }
-            
+            .nav-links { justify-content: flex-start; padding: 12px 16px; }
             .intro-centered { padding: 40px 10px 20px 10px; }
             .intro-centered h1 { font-size: 2.2rem; margin-bottom: 16px; }
-            .intro-centered h2 { font-size: 1rem; line-height: 1.5; }
-            .intro-centered p { font-size: 0.95rem; margin-bottom: 24px; }
-            
-            .profile-img { width: 120px; height: 120px; }
-            
-            /* Buttons stretch full width on mobile */
             .btn-group { flex-direction: column; width: 100%; max-width: 300px; gap: 12px; }
-            
-            .splash-screen { height: 400px; } /* Slightly smaller 3D area for phones */
-            
-            .section-header h3 { font-size: 1.5rem; }
-            .grid-2, .grid-3 { grid-template-columns: 1fr; } /* Force single column on phones */
-            .card { padding: 24px; } /* Less internal padding on phones */
-            
-            .contact-links { word-break: break-all; } /* Prevents long emails from breaking layout */
+            .btn { width: 100%; }
+            .splash-screen { height: 400px; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .card { padding: 24px; }
         }
     </style>
 </head>
@@ -222,7 +231,7 @@
 
     <div class="bg-grid"></div>
 
-    <!-- 1. NAVIGATION BAR (Swipeable on Mobile) -->
+    <!-- NAVIGATION BAR -->
     <nav class="navbar">
         <div class="nav-links">
             <button class="nav-btn active" onclick="switchTab('home')">Home</button>
@@ -234,13 +243,11 @@
         </div>
     </nav>
 
-    <!-- 2. MAIN TAB CONTENT -->
     <div class="container main-content">
 
         <!-- TAB: HOME -->
         <section id="home" class="tab-section active">
             
-            <!-- Part 1: Centered Intro (Top) -->
             <div class="intro-centered" id="intro-centered">
                 <div class="profile-container">
                     <img src="profile.jpg" alt="Ashique Al Arafat Nayeem" class="profile-img" onerror="this.src='https://via.placeholder.com/160/111827/3b82f6?text=Photo'">
@@ -251,17 +258,54 @@
                     <strong>EEE Undergraduate @ BUET</strong> <br>
                     Content Director @ JICA Grassroot &nbsp;|&nbsp; Researcher
                 </h2>
+
+                <!-- Academic/Social Links -->
+                <div class="academic-links">
+                    <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="mailto:ashiquealarafat2003@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                </div>
+
                 <p>
                     Bridging electrical engineering, Olympiad-level analytical problem solving, and artificial intelligence. Specializing in biomedical signal processing, optoelectronics, and technical education.
                 </p>
                 
                 <div class="btn-group">
                     <button class="btn btn-primary" onclick="switchTab('research')"><i class="fa-solid fa-microscope"></i> View Research</button>
-                    <button class="btn btn-secondary" onclick="switchTab('contact')"><i class="fa-solid fa-envelope"></i> Contact Me</button>
+                    <!-- Download CV Button Placeholder -->
+                    <a href="resume.pdf" target="_blank" class="btn btn-outline-cyan"><i class="fa-solid fa-download"></i> Download CV</a>
                 </div>
             </div>
 
-            <!-- Part 2: 3D Splash Screen (Bottom) -->
+            <!-- LIVE TICKER TAPE -->
+            <div class="ticker-wrap">
+                <div class="ticker">
+                    <!-- Repeated for infinite scroll -->
+                    <div class="ticker-item">Biomedical Signal Processing</div>
+                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Machine Learning Architecture</div>
+                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Optoelectronics</div>
+                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Surface Plasmon Resonance</div>
+                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Computational Physics</div>
+                    <div class="ticker-item">•</div>
+                    
+                    <div class="ticker-item">Biomedical Signal Processing</div>
+                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Machine Learning Architecture</div>
+                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Optoelectronics</div>
+                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Surface Plasmon Resonance</div>
+                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Computational Physics</div>
+                    <div class="ticker-item">•</div>
+                </div>
+            </div>
+
+            <!-- 3D SPLASH SCREEN -->
             <div class="splash-screen" id="model-section">
                 <div id="three-canvas"></div>
                 <div class="canvas-label">DRAG TO ROTATE</div>
@@ -269,17 +313,28 @@
 
         </section>
 
-        <!-- TAB: RESEARCH -->
+        <!-- TAB: RESEARCH (ACADEMIC FORMAT) -->
         <section id="research" class="tab-section">
             <div class="section-header">
                 <i class="fa-solid fa-network-wired"></i>
                 <h3>Current Research</h3>
             </div>
             <div class="grid-2">
+                
+                <!-- Research Card 1 -->
                 <div class="card">
-                    <h4><i class="fa-solid fa-brain"></i> Alzheimer's Detection via EEG & ML</h4>
-                    <span class="status">Ongoing Research</span>
-                    <p>Developing advanced Machine Learning models for the early detection of Alzheimer's disease through the analysis and processing of EEG signals. Bridging biomedical signal processing and AI for non-invasive diagnostic tools.</p>
+                    <h4><i class="fa-solid fa-brain"></i> Alzheimer's Detection via EEG</h4>
+                    <span class="status">Working Paper / Ongoing</span>
+                    
+                    <div class="abstract-section">
+                        <strong>Objective:</strong><br>
+                        Develop highly accurate Machine Learning models for the early, non-invasive detection of Alzheimer's disease using raw Electroencephalogram (EEG) data.
+                    </div>
+                    <div class="abstract-section">
+                        <strong>Methodology:</strong><br>
+                        Bridging biomedical signal processing and deep neural networks to isolate cognitive degradation biomarkers within brainwave frequencies.
+                    </div>
+
                     <div class="tags">
                         <span class="tag"><i class="devicon-python-plain colored"></i> Python</span>
                         <span class="tag"><i class="fa-solid fa-network-wired" style="color: #3b82f6;"></i> Deep Learning</span>
@@ -287,16 +342,27 @@
                     </div>
                 </div>
 
+                <!-- Research Card 2 -->
                 <div class="card">
                     <h4><i class="fa-solid fa-wave-square"></i> PCF SPR Biosensor</h4>
                     <span class="status">Pre-Publication</span>
-                    <p>Conducting advanced research on Photonic Crystal Fiber Surface Plasmon Resonance (PCF SPR) biosensors. Exploring highly sensitive optical detection methods utilizing computational physics and electromagnetics.</p>
+                    
+                    <div class="abstract-section">
+                        <strong>Objective:</strong><br>
+                        Design and optimize highly sensitive optical detection methods utilizing Photonic Crystal Fiber Surface Plasmon Resonance (PCF SPR).
+                    </div>
+                    <div class="abstract-section">
+                        <strong>Methodology:</strong><br>
+                        Applying computational physics, numerical modeling, and electromagnetics to enhance refractive index detection capabilities for micro-biological targets.
+                    </div>
+
                     <div class="tags">
                         <span class="tag"><i class="fa-solid fa-cube" style="color: #3b82f6;"></i> COMSOL</span>
                         <span class="tag"><i class="devicon-matlab-plain colored"></i> MATLAB</span>
                         <span class="tag"><i class="fa-solid fa-lightbulb" style="color: #f59e0b;"></i> Optoelectronics</span>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -354,7 +420,7 @@
             <div class="grid-3">
                 <div class="card">
                     <h4>Engineering & Code</h4>
-                    <div class="tags">
+                    <div class="tags" style="border:none; padding-top:0; margin-top:10px;">
                         <span class="tag"><i class="devicon-python-plain colored"></i> Python</span>
                         <span class="tag"><i class="devicon-cplusplus-plain colored"></i> C/C++</span>
                         <span class="tag"><i class="devicon-matlab-plain colored"></i> MATLAB</span>
@@ -367,7 +433,7 @@
                 </div>
                 <div class="card">
                     <h4>Creative & Media</h4>
-                    <div class="tags">
+                    <div class="tags" style="border:none; padding-top:0; margin-top:10px;">
                         <span class="tag"><i class="fa-solid fa-shapes" style="color: #f59e0b;"></i> Manim</span>
                         <span class="tag"><i class="devicon-premierepro-plain colored"></i> Premiere Pro</span>
                         <span class="tag"><i class="devicon-aftereffects-plain colored"></i> After Effects</span>
@@ -379,15 +445,14 @@
                 </div>
                 <div class="card">
                     <h4>Professional Skills</h4>
-                    <div class="tags">
+                    <div class="tags" style="border:none; padding-top:0; margin-top:10px;">
                         <span class="tag"><i class="fa-solid fa-microphone"></i> Public Speaking</span>
                         <span class="tag"><i class="fa-solid fa-gavel"></i> Debate</span>
                         <span class="tag"><i class="fa-solid fa-magnifying-glass"></i> Research</span>
                         <span class="tag"><i class="fa-solid fa-handshake-angle"></i> Mentoring</span>
-                        <span class="tag"><i class="fa-solid fa-calendar-check"></i> Event Management</span>
+                        <span class="tag"><i class="fa-solid fa-calendar-check"></i> Event Mgmt.</span>
                         <span class="tag"><i class="fa-solid fa-users-gear"></i> HR & Comm.</span>
                         <span class="tag"><i class="fa-solid fa-pen-nib"></i> Creative Writing</span>
-                        <span class="tag"><i class="fa-solid fa-chalkboard"></i> Poster Presentation</span>
                     </div>
                 </div>
             </div>
@@ -408,7 +473,7 @@
                         <li><strong>1st Position:</strong> Math & Physics Olympiads, 1st BNCD Online Contest 2020.</li>
                         <li><strong>1st Runner-up:</strong> JN Islam Mega Fest 2021 (Math) organized by Boson.</li>
                         <li><strong>1st Runner-up:</strong> 1st Boson Online Math and IQ Olympiad 2020.</li>
-                        <li><strong>2nd Position (War of Calculus):</strong> VNMC Hippodrome of Mathematical Ballad 2021.</li>
+                        <li><strong>2nd Position:</strong> VNMC Hippodrome of Mathematical Ballad 2021.</li>
                         <li><strong>2nd Position (Senior):</strong> Math Quiz of “Gonitbid – 2020”.</li>
                         <li><strong>3rd Position:</strong> Mega Math Fest (Higgsino) & 1st RMC Online Math Contest.</li>
                     </ul>
@@ -456,7 +521,7 @@
 
         <!-- TAB: CONTACT -->
         <section id="contact" class="tab-section">
-            <div class="card contact-links" style="text-align: center; max-width: 600px; margin: 40px auto; display: flex; flex-direction: column; align-items: center;">
+            <div class="card" style="text-align: center; max-width: 600px; margin: 40px auto; display: flex; flex-direction: column; align-items: center;">
                 <h3 style="font-size: 1.5rem; margin-bottom: 16px; color: var(--text-main);">Let's Connect</h3>
                 <p style="margin-bottom: 24px;">Open to discussing research collaborations, ed-tech opportunities, or engineering projects.</p>
                 <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center;">
@@ -467,7 +532,7 @@
             </div>
         </section>
 
-    </div> <!-- End Main Content Container -->
+    </div>
 
     <footer>
         <p>&copy; 2026 Md. Ashique Al Arafat Nayeem. Built with modern engineering.</p>
@@ -491,27 +556,20 @@
             document.getElementById(tabId).classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            // Re-trigger resize to fix canvas layout if returning to Home
-            if(tabId === 'home') {
-                window.dispatchEvent(new Event('resize'));
-            }
+            if(tabId === 'home') { window.dispatchEvent(new Event('resize')); }
         }
 
         // --------------------------------------------------------
-        // CINEMATIC LOAD: Jump to model, wait 1.2 sec, scroll to top
+        // CINEMATIC LOAD: Jump to model, wait 1.5 sec, scroll to top
         // --------------------------------------------------------
         document.addEventListener("DOMContentLoaded", () => {
             const modelSection = document.getElementById('model-section');
-            
-            // Instantly jump page down to the 3D model while page is fading in
             window.scrollTo(0, modelSection.offsetTop);
 
-            // Wait for window to finish loading resources, then wait 1.2 second, then scroll up
             window.addEventListener('load', () => {
                 setTimeout(() => {
-                    // Smoothly scroll back to the very top (Profile & Intro)
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 2000); 
+                }, 1500); 
             });
         });
 
