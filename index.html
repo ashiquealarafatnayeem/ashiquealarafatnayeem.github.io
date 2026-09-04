@@ -10,8 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
+    <!-- Icons (FontAwesome & Devicon for Logos) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     
     <style>
         /* ----------------------------------------------------
@@ -20,7 +21,7 @@
         :root {
             --bg-color: #050a15;
             --surface-color: rgba(17, 24, 39, 0.7);
-            --border-color: rgba(255, 255, 255, 0.06);
+            --border-color: rgba(255, 255, 255, 0.08);
             --text-main: #f3f4f6;
             --text-muted: #9ca3af;
             --accent-blue: #3b82f6;
@@ -45,22 +46,30 @@
             -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
         }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         /* ----------------------------------------------------
-           2. CENTERED HERO SECTION
+           2. SPLIT HERO SECTION (CLEAN & NOT BUSY)
         ----------------------------------------------------- */
-        .hero {
-            display: flex; flex-direction: column; align-items: center; text-align: center;
-            padding: 100px 0 60px 0;
+        .hero { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; /* Split left and right */
+            gap: 50px; 
+            align-items: center; 
+            padding: 120px 0 80px 0; 
         }
 
-        .profile-container {
-            position: relative; margin-bottom: 24px;
+        .hero-content-left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
         }
+
+        .profile-container { margin-bottom: 24px; }
         
         .profile-img {
-            width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
             border: 2px solid var(--border-color);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 4px rgba(59, 130, 246, 0.1);
             transition: transform 0.3s ease;
@@ -71,16 +80,15 @@
             font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px;
             background: linear-gradient(to right, #fff, #a5b4fc);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 1.1;
         }
 
-        .hero h2 {
-            font-size: 1.2rem; font-weight: 400; color: var(--text-muted); margin-bottom: 24px; max-width: 700px;
-        }
+        .hero h2 { font-size: 1.15rem; font-weight: 400; color: var(--text-muted); margin-bottom: 24px; max-width: 100%; line-height: 1.6;}
         .hero h2 strong { color: var(--text-main); font-weight: 500;}
 
-        .hero p { max-width: 700px; color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+        .hero p { max-width: 90%; color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; }
 
-        .btn-group { display: flex; gap: 16px; justify-content: center; }
+        .btn-group { display: flex; gap: 16px; justify-content: flex-start; }
         .btn {
             display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; 
             border-radius: 8px; font-weight: 500; font-size: 0.95rem; text-decoration: none; transition: 0.2s;
@@ -90,9 +98,11 @@
         .btn-secondary { background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border-color); }
         .btn-secondary:hover { background: rgba(255,255,255,0.1); }
 
-        /* 3D Canvas Window */
+        /* 3D Canvas Window (Moved to Right Side) */
+        .hero-content-right { width: 100%; display: flex; justify-content: center;}
+        
         .canvas-window {
-            width: 100%; height: 400px; margin-top: 60px; border-radius: 16px; 
+            width: 100%; height: 420px; border-radius: 16px; 
             border: 1px solid var(--border-color); background: rgba(0,0,0,0.3);
             overflow: hidden; position: relative;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
@@ -114,43 +124,55 @@
         .section-header h3 { font-size: 1.75rem; font-weight: 600; color: var(--text-main); }
         .section-header i { color: var(--accent-blue); font-size: 1.5rem; }
 
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; align-items: start;}
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;}
 
         .card {
             background: var(--surface-color); border: 1px solid var(--border-color);
             border-radius: 12px; padding: 32px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s; height: 100%; 
         }
         .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.15);}
         
-        .card h4 { font-size: 1.2rem; font-weight: 600; margin-bottom: 12px; color: var(--text-main); }
+        .card h4 { font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; color: var(--text-main); display: flex; align-items: center; gap: 10px;}
+        .card h4 i { color: var(--accent-cyan); font-size: 1.1rem; }
+        
         .status { display: inline-block; font-size: 0.8rem; padding: 4px 10px; background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-radius: 20px; margin-bottom: 16px; font-weight: 500;}
         
-        .card p, .card li { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 12px; }
-        ul { list-style: none; }
-        .card li { display: flex; align-items: flex-start; gap: 10px; }
-        .card li::before { content: "•"; color: var(--accent-blue); font-weight: bold; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px; }
+        
+        /* Lists */
+        .card ul { list-style: none; padding: 0; margin: 0; }
+        .card li { position: relative; padding-left: 22px; margin-bottom: 14px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
+        .card li::before { content: "▹"; position: absolute; left: 0; top: 0px; color: var(--accent-blue); font-weight: bold; font-size: 1.1rem;}
         .card li strong { color: var(--text-main); font-weight: 500;}
 
-        /* Tags */
+        /* Tags WITH LOGOS */
         .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
         .tag {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
             padding: 6px 12px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-color);
             border-radius: 6px; color: var(--text-main);
+            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
         }
+        .tag:hover { background: rgba(255,255,255,0.08); }
+        .tag i { font-size: 1.1rem; }
 
-        /* Scrollable List for Achievements */
-        .scrollable { max-height: 280px; overflow-y: auto; padding-right: 12px; }
-        .scrollable::-webkit-scrollbar { width: 4px; }
-        .scrollable::-webkit-scrollbar-track { background: transparent; }
-        .scrollable::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+        /* FIX FOR DARK LOGOS (Adobe & C++) */
+        .brighten-logo {
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.25)) brightness(1.7) contrast(1.2);
+        }
 
         footer { text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 80px;}
+            .hero-content-left { align-items: center; text-align: center; }
+            .hero h1 { text-align: center; font-size: 2.5rem; }
+            .hero h2 { text-align: center; }
+            .hero p { text-align: center; margin-bottom: 24px;}
+            .btn-group { justify-content: center; }
             .grid-2, .grid-3 { grid-template-columns: 1fr; }
         }
     </style>
@@ -161,31 +183,38 @@
 
     <div class="container">
         
-        <!-- HERO SECTION -->
+        <!-- HERO SECTION (Side by Side Layout) -->
         <header class="hero">
-            <div class="profile-container">
-                <!-- Ensure your photo is named exactly profile.jpg in the same folder -->
-                <img src="profile.jpg" alt="Ashique Al Arafat Nayeem" class="profile-img" onerror="this.src='https://via.placeholder.com/160/111827/3b82f6?text=Photo'">
-            </div>
             
-            <h1>Md. Ashique Al Arafat Nayeem</h1>
-            <h2>
-                <strong>EEE Undergraduate @ BUET</strong> &nbsp;|&nbsp; Content Director @ JICA Grassroot &nbsp;|&nbsp; ML Researcher
-            </h2>
-            <p>
-                Bridging electrical engineering, Olympiad-level analytical problem solving, and artificial intelligence. Specializing in biomedical signal processing, optoelectronics, and technical education.
-            </p>
-            
-            <div class="btn-group">
-                <a href="#research" class="btn btn-primary"><i class="fa-solid fa-microscope"></i> View Research</a>
-                <a href="#contact" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i> Contact Me</a>
+            <!-- Left Side: Profile & Text -->
+            <div class="hero-content-left">
+                <div class="profile-container">
+                    <img src="profile.jpg" alt="Ashique Al Arafat Nayeem" class="profile-img" onerror="this.src='https://via.placeholder.com/140/111827/3b82f6?text=Photo'">
+                </div>
+                
+                <h1>Md. Ashique Al Arafat Nayeem</h1>
+                <h2>
+                    <strong>EEE Undergraduate @ BUET</strong> <br>
+                    Content Director @ JICA Grassroot &nbsp;|&nbsp; ML Researcher
+                </h2>
+                <p>
+                    Bridging electrical engineering, Olympiad-level analytical problem solving, and artificial intelligence. Specializing in biomedical signal processing, optoelectronics, and technical education.
+                </p>
+                
+                <div class="btn-group">
+                    <a href="#research" class="btn btn-primary"><i class="fa-solid fa-microscope"></i> View Research</a>
+                    <a href="#contact" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i> Contact Me</a>
+                </div>
             </div>
 
-            <!-- 3D EEE & ML Visualization Window -->
-            <div class="canvas-window">
-                <div id="three-canvas"></div>
-                <div class="canvas-label">Interactive: Neural EEG Signal & Processor (Drag to Rotate)</div>
+            <!-- Right Side: 3D Visualization -->
+            <div class="hero-content-right">
+                <div class="canvas-window">
+                    <div id="three-canvas"></div>
+                    <div class="canvas-label">Interactive: Neural EEG Signal & CPU (Drag to Rotate)</div>
+                </div>
             </div>
+
         </header>
 
         <!-- RESEARCH SECTION -->
@@ -196,24 +225,24 @@
             </div>
             <div class="grid-2">
                 <div class="card">
-                    <h4>Alzheimer's Detection via EEG & ML</h4>
+                    <h4><i class="fa-solid fa-brain"></i> Alzheimer's Detection via EEG & ML</h4>
                     <span class="status">Ongoing Research</span>
                     <p>Developing advanced Machine Learning models for the early detection of Alzheimer's disease through the analysis and processing of EEG signals. Bridging biomedical signal processing and AI for non-invasive diagnostic tools.</p>
                     <div class="tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Deep Learning</span>
-                        <span class="tag">Signal Processing</span>
+                        <span class="tag"><i class="devicon-python-plain colored"></i> Python</span>
+                        <span class="tag"><i class="fa-solid fa-network-wired" style="color: #3b82f6;"></i> Deep Learning</span>
+                        <span class="tag"><i class="fa-solid fa-wave-square" style="color: #06b6d4;"></i> Signal Processing</span>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h4>PCF SPR Biosensor</h4>
+                    <h4><i class="fa-solid fa-wave-square"></i> PCF SPR Biosensor</h4>
                     <span class="status">Pre-Publication</span>
                     <p>Conducting advanced research on Photonic Crystal Fiber Surface Plasmon Resonance (PCF SPR) biosensors. Exploring highly sensitive optical detection methods utilizing computational physics and electromagnetics.</p>
                     <div class="tags">
-                        <span class="tag">COMSOL</span>
-                        <span class="tag">MATLAB</span>
-                        <span class="tag">Optoelectronics</span>
+                        <span class="tag"><i class="fa-solid fa-cube" style="color: #3b82f6;"></i> COMSOL</span>
+                        <span class="tag"><i class="devicon-matlab-plain colored"></i> MATLAB</span>
+                        <span class="tag"><i class="fa-solid fa-lightbulb" style="color: #f59e0b;"></i> Optoelectronics</span>
                     </div>
                 </div>
             </div>
@@ -227,26 +256,44 @@
             </div>
             <div class="grid-2">
                 <div class="card">
-                    <h4>Academic Background</h4>
+                    <h4><i class="fa-solid fa-university"></i> Academic Background</h4>
                     <ul>
-                        <li><strong>BUET:</strong> BSc. Electrical and Electronic Engineering (Current CGPA: 3.60)</li>
+                        <li><strong>BUET:</strong> BSc. Electrical and Electronic Engineering (Current CGPA: 3.60) | July 2023 - Present</li>
                         <li><strong>Notre Dame College, Dhaka:</strong> HSC - 2022 (GPA: 5.00)</li>
                         <li><strong>Bogura Cantonment Public School:</strong> SSC - 2020 (GPA: 5.00)</li>
                     </ul>
                 </div>
+                
                 <div class="card">
-                    <h4>EdTech & Leadership</h4>
+                    <h4><i class="fa-solid fa-laptop-code"></i> EdTech & Professional</h4>
                     <ul>
                         <li><strong>Content Director:</strong> JICA Grassroot Project</li>
-                        <li><strong>Founder:</strong> With Scienceloger (Online Platform)</li>
-                        <li><strong>Ex-President:</strong> Brainiacs Club (2020-21)</li>
-                        <li><strong>Global Tutor (4+ yrs):</strong> Teaching Math/Physics internationally (Canada, Kuwait, Italy, Myanmar).</li>
+                        <li><strong>Founder:</strong> With Scienceloger (Online Educational Platform simplifying complex concepts via digital visualization)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-chalkboard-user"></i> Global Teaching</h4>
+                    <ul>
+                        <li><strong>4+ Years Tutoring:</strong> Teaching secondary and high-school Math/Physics internationally.</li>
+                        <li><strong>Canada:</strong> Grade 7 to 10</li>
+                        <li><strong>Kuwait:</strong> Grade 9 to 11</li>
+                        <li><strong>Italy:</strong> Grade 9</li>
+                        <li><strong>Myanmar:</strong> Grade 7 to 8</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-users"></i> Leadership & Clubs</h4>
+                    <ul>
+                        <li><strong>Ex-President:</strong> Brainiacs Club (Online Multipurpose Club) 2020-21.</li>
+                        <li><strong>Event Management:</strong> Experienced in organizing and managing extensive clubbing and technical events.</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <!-- SKILLS MATRIX -->
+        <!-- SKILLS MATRIX WITH FIXED LOGOS -->
         <section>
             <div class="section-header">
                 <i class="fa-solid fa-layer-group"></i>
@@ -256,39 +303,41 @@
                 <div class="card">
                     <h4>Engineering & Code</h4>
                     <div class="tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">C/C++</span>
-                        <span class="tag">MATLAB</span>
-                        <span class="tag">AutoCAD</span>
-                        <span class="tag">COMSOL</span>
-                        <span class="tag">PSpice</span>
-                        <span class="tag">Arduino</span>
-                        <span class="tag">ML / AI</span>
+                        <span class="tag"><i class="devicon-python-plain colored"></i> Python</span>
+                        <!-- Added 'brighten-logo' class to dark C++ icon -->
+                        <span class="tag"><i class="devicon-cplusplus-plain colored brighten-logo"></i> C/C++</span>
+                        <span class="tag"><i class="devicon-matlab-plain colored"></i> MATLAB</span>
+                        <span class="tag"><i class="devicon-arduino-plain colored"></i> Arduino</span>
+                        <span class="tag"><i class="fa-solid fa-cube" style="color: #3b82f6;"></i> COMSOL</span>
+                        <span class="tag"><i class="fa-solid fa-pen-ruler" style="color: #0ea5e9;"></i> AutoCAD</span>
+                        <span class="tag"><i class="fa-solid fa-microchip" style="color: #ef4444;"></i> PSpice</span>
+                        <span class="tag"><i class="fa-solid fa-brain" style="color: #ec4899;"></i> ML / AI</span>
                     </div>
                 </div>
                 <div class="card">
                     <h4>Creative & Media</h4>
                     <div class="tags">
-                        <span class="tag">Manim Animation</span>
-                        <span class="tag">Premiere Pro</span>
-                        <span class="tag">After Effects</span>
-                        <span class="tag">Photoshop</span>
-                        <span class="tag">Illustrator</span>
-                        <span class="tag">Canva</span>
-                        <span class="tag">MS Office Suite</span>
+                        <span class="tag"><i class="fa-solid fa-shapes" style="color: #f59e0b;"></i> Manim</span>
+                        <!-- Added 'brighten-logo' class to dark Adobe icons -->
+                        <span class="tag"><i class="devicon-premierepro-plain colored brighten-logo"></i> Premiere Pro</span>
+                        <span class="tag"><i class="devicon-aftereffects-plain colored brighten-logo"></i> After Effects</span>
+                        <span class="tag"><i class="devicon-photoshop-plain colored brighten-logo"></i> Photoshop</span>
+                        <span class="tag"><i class="devicon-illustrator-plain colored brighten-logo"></i> Illustrator</span>
+                        <span class="tag"><i class="devicon-canva-original colored"></i> Canva</span>
+                        <span class="tag"><i class="fa-brands fa-microsoft" style="color: #00a4ef;"></i> MS Office</span>
                     </div>
                 </div>
                 <div class="card">
                     <h4>Professional Skills</h4>
                     <div class="tags">
-                        <span class="tag">Public Speaking</span>
-                        <span class="tag">Debate</span>
-                        <span class="tag">Research</span>
-                        <span class="tag">Mentoring</span>
-                        <span class="tag">Event Management</span>
-                        <span class="tag">HR & Comm.</span>
-                        <span class="tag">Creative Writing</span>
-                        <span class="tag">Poster Presentation</span>
+                        <span class="tag"><i class="fa-solid fa-microphone"></i> Public Speaking</span>
+                        <span class="tag"><i class="fa-solid fa-gavel"></i> Debate</span>
+                        <span class="tag"><i class="fa-solid fa-magnifying-glass"></i> Research</span>
+                        <span class="tag"><i class="fa-solid fa-handshake-angle"></i> Mentoring</span>
+                        <span class="tag"><i class="fa-solid fa-calendar-check"></i> Event Management</span>
+                        <span class="tag"><i class="fa-solid fa-users-gear"></i> HR & Comm.</span>
+                        <span class="tag"><i class="fa-solid fa-pen-nib"></i> Creative Writing</span>
+                        <span class="tag"><i class="fa-solid fa-chalkboard"></i> Poster Presentation</span>
                     </div>
                 </div>
             </div>
@@ -301,50 +350,74 @@
                 <h3>Achievements & Extra-Curriculars</h3>
             </div>
             <div class="grid-2">
+                
                 <div class="card">
-                    <h4>Olympiads (20+)</h4>
-                    <div class="scrollable">
-                        <ul>
-                            <li><strong>Winner:</strong> Regional Round of Bangladesh Mathematical Olympiad (2019 & 2021).</li>
-                            <li><strong>1st Position:</strong> Bangladesh Physics Olympiad 2021 (Regional, Secondary).</li>
-                            <li><strong>Winner:</strong> National Earth Olympiad 2020 (Regional).</li>
-                            <li><strong>Winner (Secondary):</strong> Al-Arafah Islami Bank 6th BdJSO 2020.</li>
-                            <li><strong>Winner:</strong> Regional General Knowledge Olympiad 2020.</li>
-                            <li><strong>1st Position:</strong> Math, Physics & IQ in 1st BNCD Online Contest 2020.</li>
-                            <li><strong>1st Position (IQ):</strong> SAGC 5th Science Festival 2020-21.</li>
-                            <li><strong>2nd Position:</strong> Sheikh Russel Smriti Quiz & Bangabandhu Memorial Quiz.</li>
-                            <li><strong>1st Runner-up:</strong> JN Islam Mega Fest 2021 (Math) & Boson Math/IQ 2020.</li>
-                        </ul>
-                    </div>
+                    <h4><i class="fa-solid fa-calculator"></i> Math & Physics Olympiads</h4>
+                    <ul>
+                        <li><strong>Winner:</strong> Regional Round, Bangladesh Mathematical Olympiad (2019 & 2021).</li>
+                        <li><strong>1st Position:</strong> Regional Round, Bangladesh Physics Olympiad 2021.</li>
+                        <li><strong>1st Position:</strong> Math & Physics Olympiads, 1st BNCD Online Contest 2020.</li>
+                        <li><strong>1st Runner-up:</strong> JN Islam Mega Fest 2021 (Math) organized by Boson.</li>
+                        <li><strong>1st Runner-up:</strong> 1st Boson Online Math and IQ Olympiad 2020.</li>
+                        <li><strong>2nd Position (War of Calculus):</strong> VNMC Hippodrome of Mathematical Ballad 2021.</li>
+                        <li><strong>2nd Position (Senior):</strong> Math Quiz of “Gonitbid – 2020”.</li>
+                        <li><strong>3rd Position:</strong> Mega Math Fest (Higgsino) & 1st RMC Online Math Contest.</li>
+                    </ul>
                 </div>
 
                 <div class="card">
-                    <h4>Debate, MUN & Workshops</h4>
-                    <div class="scrollable">
-                        <ul>
-                            <li><strong>Champion:</strong> 1st Inter College National Debate 2021 (BTV).</li>
-                            <li><strong>Champion:</strong> NDF BD Rajshahi Zone 1st Virtual Debate.</li>
-                            <li><strong>Runner-up:</strong> Khulna Divisional Debate 2020 & Juktir Poshora 2021.</li>
-                            <li><strong>Delegate:</strong> Pundranagar International Diplomatic Symposium 2020 (MUN).</li>
-                            <li><strong>Workshop:</strong> "Intro to Realm of IoT with ESP32" - IEEE Robotics & Automation BUET (2024).</li>
-                            <li><strong>Festival:</strong> NDF BD Dhaka District Debate Carnival 2019 & Rajshahi 2018.</li>
-                            <li><strong>Workshop:</strong> Astronomy Workshop (Higgsino Science Society).</li>
-                            <li><strong>Camp:</strong> 10 Days Literature Camp (Onnonya Proyash).</li>
-                        </ul>
-                    </div>
+                    <h4><i class="fa-solid fa-flask"></i> Science, GK & IQ Success</h4>
+                    <ul>
+                        <li><strong>Winner:</strong> Regional Round, National Earth Olympiad 2020.</li>
+                        <li><strong>Winner (Secondary):</strong> Al-Arafah Islami Bank 6th BdJSO 2020.</li>
+                        <li><strong>Winner:</strong> Regional General Knowledge Olympiad 2020.</li>
+                        <li><strong>1st Position (IQ):</strong> SAGC 5th Science Festival & 1st BNCD Online Contest.</li>
+                        <li><strong>2nd Position:</strong> Sheikh Russel Smriti Quiz (National Museum of Science/Tech).</li>
+                        <li><strong>2nd Position:</strong> Bangabandhu Memorial Quiz.</li>
+                        <li><strong>Honorable Mention:</strong> Biology Olympiad, JN Islam Mega Fest 2021.</li>
+                        <li><strong>Bronze Award:</strong> Science Quiz in E Sci Circus 2020.</li>
+                        <li><strong>Top 10:</strong> "Contest of Wits" (9th) & "Battle of Brains" (10th) by Green University.</li>
+                    </ul>
                 </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-gavel"></i> Debate Championships</h4>
+                    <ul>
+                        <li><strong>Champion:</strong> 1st Inter College National Debate 2021 (organized by BTV).</li>
+                        <li><strong>Champion:</strong> NDF BD Rajshahi Zone 1st Virtual Debate Championship.</li>
+                        <li><strong>Runner-up:</strong> Inter Cantonment Public School & College Parliamentary Debate 2019.</li>
+                        <li><strong>Runner-up:</strong> Khulna Divisional Debate Competition 2020.</li>
+                        <li><strong>Runner-up:</strong> Juktir Poshora Online National Debate Festival 2021.</li>
+                        <li><strong>Semi-finalist:</strong> 4th Rokeya Hall Debate Festival 2021 (Dhaka University).</li>
+                        <li><strong>Semi-finalist:</strong> Inter Cantonment Public School & College Debate 2018.</li>
+                        <li><strong>Judge:</strong> Awaaz Cultural Event (Solo Debate Segment).</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><i class="fa-solid fa-globe"></i> Workshops, Camps & MUN</h4>
+                    <ul>
+                        <li><strong>Delegate:</strong> Participated for Pundranagar International Diplomatic Symposium 2020 (Model United Nations).</li>
+                        <li><strong>Workshop:</strong> “Intro to Realm of IoT with ESP32” by IEEE Robotics & Automation Society BUET (Sept 2024).</li>
+                        <li><strong>Festival:</strong> NDF BD Dhaka District Debate Carnival 2019.</li>
+                        <li><strong>Festival:</strong> 4th NDF BD Rajshahi Divisional Debate Festival 2018.</li>
+                        <li><strong>Workshop:</strong> Astronomy Workshop organized by Higgsino Science Society.</li>
+                        <li><strong>Camp:</strong> Participated in the 10-day Literature Camp of Onnonya Proyash.</li>
+                    </ul>
+                </div>
+
             </div>
         </section>
 
         <!-- CONTACT -->
         <section id="contact">
-            <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto;">
-                <h3 style="font-size: 1.5rem; margin-bottom: 16px;">Let's Connect</h3>
+            <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+                <h3 style="font-size: 1.5rem; margin-bottom: 16px; color: var(--text-main);">Let's Connect</h3>
                 <p style="margin-bottom: 24px;">Open to discussing research collaborations, ed-tech opportunities, or engineering projects.</p>
-                <div style="display: flex; flex-direction: column; gap: 12px; align-items: center;">
-                    <a href="mailto:ashiquealarafat2003@gmail.com" style="color: var(--accent-blue); text-decoration: none; font-weight: 500;"><i class="fa-solid fa-envelope"></i> ashiquealarafat2003@gmail.com</a>
-                    <span style="color: var(--text-muted);"><i class="fa-solid fa-phone"></i> +880 1845919949</span>
-                    <span style="color: var(--text-muted);"><i class="fa-solid fa-location-dot"></i> Lalbagh, Dhaka, Bangladesh</span>
+                <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center;">
+                    <a href="mailto:ashiquealarafat2003@gmail.com" style="color: var(--accent-blue); text-decoration: none; font-weight: 500; font-size: 1.1rem;"><i class="fa-solid fa-envelope"></i> ashiquealarafat2003@gmail.com</a>
+                    <span style="color: var(--text-muted); font-size: 1.1rem;"><i class="fa-solid fa-phone"></i> +880 1845919949</span>
+                    <span style="color: var(--text-muted); font-size: 1.1rem;"><i class="fa-solid fa-location-dot"></i> Lalbagh, Dhaka, Bangladesh</span>
                 </div>
             </div>
         </section>
@@ -365,7 +438,6 @@
         const container = document.getElementById('three-canvas');
         const scene = new THREE.Scene();
         
-        // Camera setup
         const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
         camera.position.set(5, 4, 5);
 
@@ -374,7 +446,6 @@
         renderer.setPixelRatio(window.devicePixelRatio);
         container.appendChild(renderer.domElement);
 
-        // 1. LIGHTING (Crucial for professional 3D look)
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
         scene.add(ambientLight);
         
@@ -386,7 +457,6 @@
         pointLight.position.set(0, 2, 0);
         scene.add(pointLight);
 
-        // 2. THE SIGNAL WAVE (EEG Representation)
         const particleCount = 1500;
         const waveGeo = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
@@ -412,43 +482,28 @@
         const dataWave = new THREE.Points(waveGeo, waveMat);
         scene.add(dataWave);
 
-        // 3. THE SEMICONDUCTOR PROCESSOR (Professional Build)
         const chipGroup = new THREE.Group();
-
-        // A. Silicon Base Board
         const boardGeo = new THREE.BoxGeometry(1.4, 0.08, 1.4);
-        const boardMat = new THREE.MeshStandardMaterial({ 
-            color: 0x111111, roughness: 0.7, metalness: 0.3 
-        });
+        const boardMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.7, metalness: 0.3 });
         const board = new THREE.Mesh(boardGeo, boardMat);
         chipGroup.add(board);
 
-        // B. CPU Core (Emissive Center)
         const coreGeo = new THREE.BoxGeometry(0.6, 0.1, 0.6);
-        const coreMat = new THREE.MeshStandardMaterial({ 
-            color: 0x000000, emissive: 0x06b6d4, emissiveIntensity: 0.6, wireframe: true
-        });
+        const coreMat = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0x06b6d4, emissiveIntensity: 0.6, wireframe: true});
         const core = new THREE.Mesh(coreGeo, coreMat);
         core.position.y = 0.02;
         chipGroup.add(core);
 
-        // C. Gold Metallic Pins
-        const pinMat = new THREE.MeshStandardMaterial({ 
-            color: 0xd4af37, roughness: 0.3, metalness: 1.0 
-        });
+        const pinMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, roughness: 0.3, metalness: 1.0 });
         const pinGeo = new THREE.BoxGeometry(0.04, 0.04, 0.2);
-        
-        // Loop to add pins to the 4 edges of the chip
         const numPins = 10;
         const pinStart = -0.55;
         const pinSpacing = 1.1 / (numPins - 1);
         
         for(let p = 0; p < numPins; p++) {
             const pos = pinStart + (p * pinSpacing);
-            // Top/Bottom pins
             let pinT = new THREE.Mesh(pinGeo, pinMat); pinT.position.set(pos, 0, -0.75); chipGroup.add(pinT);
             let pinB = new THREE.Mesh(pinGeo, pinMat); pinB.position.set(pos, 0, 0.75); chipGroup.add(pinB);
-            // Left/Right pins (rotate geometry)
             let pinL = new THREE.Mesh(pinGeo, pinMat); pinL.rotation.y = Math.PI/2; pinL.position.set(-0.75, 0, pos); chipGroup.add(pinL);
             let pinR = new THREE.Mesh(pinGeo, pinMat); pinR.rotation.y = Math.PI/2; pinR.position.set(0.75, 0, pos); chipGroup.add(pinR);
         }
@@ -456,7 +511,6 @@
         chipGroup.position.y = 1.2;
         scene.add(chipGroup);
 
-        // 4. CONTROLS & ANIMATION
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableZoom = false; 
         controls.enablePan = false;
@@ -469,18 +523,15 @@
             requestAnimationFrame(animate);
             const time = clock.getElapsedTime();
             
-            // Animate EEG Wave
             const posAttr = waveGeo.attributes.position;
             const posArray = posAttr.array;
             for(let j = 0; j < particleCount; j++) {
                 const x = posArray[j * 3];
                 const z = posArray[j * 3 + 2];
-                // Complex wave math mimicking electrical signals
                 posArray[j * 3 + 1] = Math.sin(x * 1.5 + time * 2) * 0.15 + Math.cos(z * 2 + time) * 0.15;
             }
             posAttr.needsUpdate = true;
 
-            // Make the CPU float slightly
             chipGroup.position.y = 1.3 + Math.sin(time * 1.5) * 0.05;
 
             controls.update();
@@ -488,7 +539,6 @@
         }
         animate();
 
-        // Handle Window Resize
         window.addEventListener('resize', () => {
             camera.aspect = container.clientWidth / container.clientHeight;
             camera.updateProjectionMatrix();
