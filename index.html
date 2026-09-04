@@ -14,6 +14,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     
+    <script>
+        // Prevents the browser from remembering old scroll positions on refresh
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+    </script>
+
     <style>
         /* ----------------------------------------------------
            1. MODERN, PROFESSIONAL CSS RESET & BASE
@@ -32,8 +39,11 @@
         
         body, html { 
             width: 100%; color: var(--text-main); font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth;
+            background-color: var(--bg-color); line-height: 1.6; overflow-x: hidden; 
+            opacity: 0; animation: fadeInPage 0.8s 0.1s forwards;
         }
+
+        @keyframes fadeInPage { to { opacity: 1; } }
 
         /* Subtle Background Grain / Grid */
         .bg-grid {
@@ -49,16 +59,24 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         /* ----------------------------------------------------
-           2. NAVIGATION BAR (TABS)
+           2. NAVIGATION BAR (MOBILE SWIPEABLE)
         ----------------------------------------------------- */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             background: rgba(5, 10, 21, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-color); padding: 12px 0;
+            border-bottom: 1px solid var(--border-color); 
             display: flex; justify-content: center;
         }
 
-        .nav-links { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; padding: 0 12px;}
+        .nav-links { 
+            display: flex; gap: 8px; padding: 12px 24px;
+            overflow-x: auto; /* Allows horizontal swiping on mobile */
+            -webkit-overflow-scrolling: touch; /* Smooth iOS scrolling */
+            white-space: nowrap; /* Prevents wrapping on mobile */
+        }
+        
+        /* Hide scrollbar for clean app look */
+        .nav-links::-webkit-scrollbar { display: none; }
         
         .nav-btn {
             background: transparent; border: none; color: var(--text-muted);
@@ -68,36 +86,24 @@
         .nav-btn:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
         .nav-btn.active { color: #60a5fa; background: rgba(59, 130, 246, 0.15); font-weight: 600;}
 
-        /* Offset content for fixed navbar */
         .main-content { padding-top: 80px; padding-bottom: 60px; }
 
-        /* TAB LOGIC CSS */
+        /* TAB LOGIC */
         .tab-section { display: none; }
-        .tab-section.active { display: block; animation: fadeIn 0.5s ease-out forwards; }
-        
-        @keyframes fadeIn {
+        .tab-section.active { display: block; animation: fadeInTab 0.5s ease-out forwards; }
+        @keyframes fadeInTab {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* ----------------------------------------------------
-           3. HOME TAB (3D SPLASH + CENTERED INTRO)
+           3. HOME TAB (INTRO TOP, 3D MODEL BOTTOM)
         ----------------------------------------------------- */
-        .splash-screen {
-            width: 100%; height: calc(100vh - 80px); /* Full screen minus nav */
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            position: relative;
-        }
-        #three-canvas { width: 100%; height: 100%; cursor: grab; }
-        #three-canvas:active { cursor: grabbing; }
-        .canvas-label {
-            position: absolute; bottom: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; 
-            color: rgba(255, 255, 255, 0.4); pointer-events: none; letter-spacing: 2px;
-        }
-
+        
+        /* Intro Top Section */
         .intro-centered {
             text-align: center; max-width: 850px; margin: 0 auto;
-            padding: 80px 20px 100px 20px;
+            padding: 60px 10px 40px 10px;
             display: flex; flex-direction: column; align-items: center;
         }
 
@@ -118,13 +124,11 @@
 
         .intro-centered h2 { font-size: 1.15rem; font-weight: 400; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;}
         .intro-centered h2 strong { color: var(--text-main); font-weight: 500;}
-
         .intro-centered p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 32px; max-width: 750px;}
 
-        /* BUTTONS */
-        .btn-group { display: flex; gap: 16px; justify-content: center; }
+        .btn-group { display: flex; gap: 16px; justify-content: center; margin-bottom: 20px;}
         .btn {
-            display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; 
             border-radius: 8px; font-weight: 500; font-size: 0.95rem; text-decoration: none; 
             transition: 0.2s; cursor: pointer; border: none; font-family: 'Inter', sans-serif;
         }
@@ -133,15 +137,28 @@
         .btn-secondary { background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border-color); }
         .btn-secondary:hover { background: rgba(255,255,255,0.1); }
 
+        /* 3D Model Bottom Section */
+        .splash-screen {
+            width: 100%; height: 500px; /* Fixed height handles mobile better */
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            position: relative; border-top: 1px solid rgba(255,255,255,0.03); margin-top: 20px;
+        }
+        #three-canvas { width: 100%; height: 100%; cursor: grab; }
+        #three-canvas:active { cursor: grabbing; }
+        .canvas-label {
+            position: absolute; bottom: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; 
+            color: rgba(255, 255, 255, 0.4); pointer-events: none; letter-spacing: 2px;
+        }
+
         /* ----------------------------------------------------
            4. PROFESSIONAL SECTIONS & CARDS
         ----------------------------------------------------- */
-        .section-header { margin-bottom: 40px; display: flex; align-items: center; gap: 12px;}
+        .section-header { margin-bottom: 30px; display: flex; align-items: center; gap: 12px;}
         .section-header h3 { font-size: 1.75rem; font-weight: 600; color: var(--text-main); }
         .section-header i { color: var(--accent-blue); font-size: 1.5rem; }
 
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 24px; align-items: start;}
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;}
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: start;}
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: start;}
 
         .card {
             background: var(--surface-color); border: 1px solid var(--border-color);
@@ -157,7 +174,6 @@
         
         .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 16px; }
         
-        /* Lists */
         .card ul { list-style: none; padding: 0; margin: 0; }
         .card li { position: relative; padding-left: 22px; margin-bottom: 14px; color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; }
         .card li::before { content: "▹"; position: absolute; left: 0; top: 0px; color: var(--accent-blue); font-weight: bold; font-size: 1.1rem;}
@@ -175,9 +191,30 @@
 
         footer { text-align: center; padding: 20px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 40px;}
 
-        @media (max-width: 900px) {
-            .intro-centered h1 { font-size: 2.5rem; }
-            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        /* ----------------------------------------------------
+           5. MOBILE / PHONE OPTIMIZATION RULES
+        ----------------------------------------------------- */
+        @media (max-width: 768px) {
+            .nav-links { justify-content: flex-start; padding: 12px 16px; } /* Ensures swipeability starts at edge */
+            .main-content { padding-top: 60px; }
+            
+            .intro-centered { padding: 40px 10px 20px 10px; }
+            .intro-centered h1 { font-size: 2.2rem; margin-bottom: 16px; }
+            .intro-centered h2 { font-size: 1rem; line-height: 1.5; }
+            .intro-centered p { font-size: 0.95rem; margin-bottom: 24px; }
+            
+            .profile-img { width: 120px; height: 120px; }
+            
+            /* Buttons stretch full width on mobile */
+            .btn-group { flex-direction: column; width: 100%; max-width: 300px; gap: 12px; }
+            
+            .splash-screen { height: 400px; } /* Slightly smaller 3D area for phones */
+            
+            .section-header h3 { font-size: 1.5rem; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; } /* Force single column on phones */
+            .card { padding: 24px; } /* Less internal padding on phones */
+            
+            .contact-links { word-break: break-all; } /* Prevents long emails from breaking layout */
         }
     </style>
 </head>
@@ -185,7 +222,7 @@
 
     <div class="bg-grid"></div>
 
-    <!-- 1. NAVIGATION BAR -->
+    <!-- 1. NAVIGATION BAR (Swipeable on Mobile) -->
     <nav class="navbar">
         <div class="nav-links">
             <button class="nav-btn active" onclick="switchTab('home')">Home</button>
@@ -202,13 +239,8 @@
 
         <!-- TAB: HOME -->
         <section id="home" class="tab-section active">
-            <!-- Part 1: 3D Splash Screen -->
-            <div class="splash-screen">
-                <div id="three-canvas"></div>
-                <div class="canvas-label">DRAG TO ROTATE</div>
-            </div>
-
-            <!-- Part 2: Centered Intro (Scrolled to automatically) -->
+            
+            <!-- Part 1: Centered Intro (Top) -->
             <div class="intro-centered" id="intro-centered">
                 <div class="profile-container">
                     <img src="profile.jpg" alt="Ashique Al Arafat Nayeem" class="profile-img" onerror="this.src='https://via.placeholder.com/160/111827/3b82f6?text=Photo'">
@@ -228,6 +260,13 @@
                     <button class="btn btn-secondary" onclick="switchTab('contact')"><i class="fa-solid fa-envelope"></i> Contact Me</button>
                 </div>
             </div>
+
+            <!-- Part 2: 3D Splash Screen (Bottom) -->
+            <div class="splash-screen" id="model-section">
+                <div id="three-canvas"></div>
+                <div class="canvas-label">DRAG TO ROTATE</div>
+            </div>
+
         </section>
 
         <!-- TAB: RESEARCH -->
@@ -417,7 +456,7 @@
 
         <!-- TAB: CONTACT -->
         <section id="contact" class="tab-section">
-            <div class="card" style="text-align: center; max-width: 600px; margin: 40px auto; display: flex; flex-direction: column; align-items: center;">
+            <div class="card contact-links" style="text-align: center; max-width: 600px; margin: 40px auto; display: flex; flex-direction: column; align-items: center;">
                 <h3 style="font-size: 1.5rem; margin-bottom: 16px; color: var(--text-main);">Let's Connect</h3>
                 <p style="margin-bottom: 24px;">Open to discussing research collaborations, ed-tech opportunities, or engineering projects.</p>
                 <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center;">
@@ -443,34 +482,37 @@
         // TAB SWITCHING LOGIC (Single Page App)
         // --------------------------------------------------------
         function switchTab(tabId) {
-            // Remove 'active' class from all buttons and sections
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
             
-            // Add 'active' to the clicked button and target section
             const targetBtn = document.querySelector(`.nav-btn[onclick="switchTab('${tabId}')"]`);
             if(targetBtn) targetBtn.classList.add('active');
             
             document.getElementById(tabId).classList.add('active');
-            
-            // Scroll to the top of the page smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Re-trigger resize to fix canvas layout if returning to Home
+            if(tabId === 'home') {
+                window.dispatchEvent(new Event('resize'));
+            }
         }
 
         // --------------------------------------------------------
-        // 2-SECOND AUTO SCROLL ON LOAD
+        // CINEMATIC LOAD: Jump to model, wait 1.2 sec, scroll to top
         // --------------------------------------------------------
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const homeIsActive = document.getElementById('home').classList.contains('active');
-                if (homeIsActive) {
-                    const introElement = document.getElementById('intro-centered');
-                    // Get the exact position minus the navigation bar height
-                    const yOffset = -80; 
-                    const y = introElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
-                    window.scrollTo({ top: y, behavior: 'smooth' });
-                }
-            }, 2000); // 2000 milliseconds = 2 seconds
+        document.addEventListener("DOMContentLoaded", () => {
+            const modelSection = document.getElementById('model-section');
+            
+            // Instantly jump page down to the 3D model while page is fading in
+            window.scrollTo(0, modelSection.offsetTop);
+
+            // Wait for window to finish loading resources, then wait 1.2 second, then scroll up
+            window.addEventListener('load', () => {
+                setTimeout(() => {
+                    // Smoothly scroll back to the very top (Profile & Intro)
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 1200); 
+            });
         });
 
         // --------------------------------------------------------
@@ -571,8 +613,7 @@
         animate();
 
         window.addEventListener('resize', () => {
-            // Only update resize if the home tab is active so we don't grab 0 width/height
-            if(document.getElementById('home').classList.contains('active')) {
+            if(container.clientWidth > 0) {
                 camera.aspect = container.clientWidth / container.clientHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(container.clientWidth, container.clientHeight);
