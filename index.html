@@ -41,18 +41,31 @@
             background-color: var(--bg-color); line-height: 1.6; overflow-x: hidden; 
         }
 
-        /* LIVE ACTIVE CIRCUIT GRID */
-        .bg-grid {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+        /* FULL WEBSITE PERSPECTIVE BACKGROUND GRIDS */
+        .bg-grid-sky {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3;
             background-image: 
-                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+                linear-gradient(to right, rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.015) 1px, transparent 1px);
             background-size: 40px 40px;
-            mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
-            -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
-            animation: panGrid 20s linear infinite; 
         }
-        @keyframes panGrid { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
+        
+        .bg-grid-floor {
+            position: fixed; bottom: 0; left: -50%; width: 200%; height: 65vh; z-index: -2;
+            background-image: 
+                linear-gradient(to right, rgba(6, 182, 212, 0.12) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(6, 182, 212, 0.12) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(600px) rotateX(75deg);
+            transform-origin: bottom center;
+            animation: gridMove 5s linear infinite;
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 90%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 5%, rgba(0,0,0,0) 90%);
+        }
+        @keyframes gridMove {
+            0% { transform: perspective(600px) rotateX(75deg) translateY(0); }
+            100% { transform: perspective(600px) rotateX(75deg) translateY(60px); }
+        }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
@@ -68,7 +81,6 @@
         
         #intro-canvas-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
 
-        /* General Tech HUD */
         .intro-hud {
             position: absolute; bottom: 30px; left: 30px;
             font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--accent-cyan);
@@ -116,7 +128,7 @@
         @keyframes fadeInTab { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ----------------------------------------------------
-           4. HOME TAB (SIDE-BY-SIDE LAYOUT)
+           4. HOME TAB
         ----------------------------------------------------- */
         .hero { 
             display: grid; 
@@ -130,7 +142,6 @@
             display: flex; flex-direction: column; align-items: flex-start; text-align: left; 
         }
 
-        /* Profile pic perfectly centered inside the left column */
         .profile-container { margin-bottom: 24px; align-self: center; }
         .profile-img {
             width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
@@ -166,7 +177,6 @@
         .btn-outline-cyan { background: transparent; color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
         .btn-outline-cyan:hover { background: rgba(6, 182, 212, 0.1); }
 
-        /* Prominent 3D Model on the Right */
         .hero-content-right { 
             width: 100%; display: flex; justify-content: center; position: relative;
         }
@@ -195,7 +205,7 @@
         @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* ----------------------------------------------------
-           5. RESEARCHER-CENTRIC CARDS
+           5. CARDS & SECTIONS
         ----------------------------------------------------- */
         .section-header { margin-bottom: 30px; display: flex; align-items: center; gap: 12px;}
         .section-header h3 { font-size: 1.75rem; font-weight: 600; color: var(--text-main); }
@@ -234,7 +244,6 @@
 
         footer { text-align: center; padding: 20px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 40px;}
 
-        /* Mobile Adjustments */
         @media (max-width: 900px) {
             .hero { grid-template-columns: 1fr; text-align: center; padding: 60px 0 40px 0;}
             .hero-content-left { align-items: center; text-align: center; }
@@ -254,7 +263,6 @@
     <!-- 1. DATA TUNNEL INTRO SCREEN -->
     <div id="intro-overlay">
         <div id="intro-canvas-container"></div>
-        <!-- Generalized Academic / Engineering HUD -->
         <div class="intro-hud">
             <div>> SYS_BOOT: SECURE_RESEARCH_ENV</div>
             <div>> COMPILING: ACADEMIC_PORTFOLIO</div>
@@ -262,8 +270,9 @@
         </div>
     </div>
 
-    <!-- NATIVE BACKGROUND -->
-    <div class="bg-grid"></div>
+    <!-- NATIVE BACKGROUND: Full Page Grid -->
+    <div class="bg-grid-sky"></div>
+    <div class="bg-grid-floor"></div>
 
     <!-- NAVIGATION BAR -->
     <nav class="navbar">
@@ -283,7 +292,6 @@
         <section id="home" class="tab-section active">
             
             <div class="hero">
-                <!-- Left: Text & Profile -->
                 <div class="hero-content-left">
                     <div class="profile-container">
                         <img src="profile.jpg" alt="Ashique Al Arafat Nayeem" class="profile-img" onerror="this.src='https://via.placeholder.com/150/111827/3b82f6?text=Photo'">
@@ -311,7 +319,6 @@
                     </div>
                 </div>
 
-                <!-- Right: Prominent 3D Simulation -->
                 <div class="hero-content-right">
                     <div class="canvas-window">
                         <div id="three-canvas"></div>
@@ -568,15 +575,11 @@
         // THE CINEMATIC DATA TUNNEL FLY-THROUGH
         // --------------------------------------------------------
         document.addEventListener("DOMContentLoaded", () => {
-            // Intro takes ~4.5 seconds to fly through, then fades.
             setTimeout(() => {
                 document.getElementById('intro-overlay').classList.add('fade-out');
             }, 4600); 
         });
 
-        // --------------------------------------------------------
-        // TAB SWITCHING LOGIC (Single Page App)
-        // --------------------------------------------------------
         function switchTab(tabId) {
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
@@ -595,45 +598,66 @@
         // --------------------------------------------------------
         const introContainer = document.getElementById('intro-canvas-container');
         const introScene = new THREE.Scene();
-        introScene.fog = new THREE.FogExp2(0x010308, 0.04); // Deep fog for tunnel depth
+        introScene.fog = new THREE.FogExp2(0x010308, 0.04); 
 
         const introCamera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-        introCamera.position.z = 15; // Start far back
+        introCamera.position.z = 15; 
 
         const introRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         introRenderer.setSize(window.innerWidth, window.innerHeight);
         introRenderer.setPixelRatio(window.devicePixelRatio);
         introContainer.appendChild(introRenderer.domElement);
 
-        // Build a High-Tech Data Wireframe Tunnel
         const tunnelGroup = new THREE.Group();
         introScene.add(tunnelGroup);
 
-        // Create geometric rings stretching into the distance
+        // Tunnel Rings (Cyan)
         const ringGeo = new THREE.EdgesGeometry(new THREE.CylinderGeometry(4, 4, 1, 8, 1, true));
         const ringMat = new THREE.LineBasicMaterial({ color: 0x06b6d4, transparent: true, opacity: 0.3 });
         
         for(let i=0; i<30; i++) {
             const ring = new THREE.LineSegments(ringGeo, ringMat);
             ring.rotation.x = Math.PI / 2;
-            ring.position.z = -i * 6; // Space them out
+            ring.position.z = -i * 6; 
             tunnelGroup.add(ring);
         }
 
-        // Add Data Packets (Glowing lines shooting down the tunnel)
+        // The Central Signal Waves (Soft Light Peach/Orange)
+        const waveCount = 400;
+        const sigGeo1 = new THREE.BufferGeometry();
+        const sigGeo2 = new THREE.BufferGeometry();
+        const sPos1 = new Float32Array(waveCount * 3);
+        const sPos2 = new Float32Array(waveCount * 3);
+
+        for(let i=0; i<waveCount; i++) {
+            const z = -i * 0.5;
+            sPos1[i*3+2] = z;
+            sPos2[i*3+2] = z;
+        }
+        sigGeo1.setAttribute('position', new THREE.BufferAttribute(sPos1, 3));
+        sigGeo2.setAttribute('position', new THREE.BufferAttribute(sPos2, 3));
+
+        const sigMat1 = new THREE.LineBasicMaterial({ color: 0xffcc80, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending });
+        const sigMat2 = new THREE.LineBasicMaterial({ color: 0xffe0b2, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending });
+
+        const sigLine1 = new THREE.Line(sigGeo1, sigMat1);
+        const sigLine2 = new THREE.Line(sigGeo2, sigMat2);
+        tunnelGroup.add(sigLine1);
+        tunnelGroup.add(sigLine2);
+
+        // Data Packets (Soft Orange)
         const packetGeo = new THREE.BoxGeometry(0.05, 0.05, 3);
-        const packetMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const packetMat = new THREE.MeshBasicMaterial({ color: 0xffb74d });
         const packets = [];
         for(let i=0; i<20; i++) {
             const packet = new THREE.Mesh(packetGeo, packetMat);
             const angle = Math.random() * Math.PI * 2;
-            const radius = 3.9; // Just inside the rings
+            const radius = 3.9; 
             packet.position.set(Math.cos(angle)*radius, Math.sin(angle)*radius, Math.random() * -100);
             tunnelGroup.add(packet);
             packets.push(packet);
         }
 
-        // Intro Animation Logic
         let introActive = true;
         let introStartTime = Date.now();
         const overlay = document.getElementById('intro-overlay');
@@ -644,18 +668,28 @@
             
             let elapsed = Date.now() - introStartTime;
             
-            // Slowly rotate the tunnel
             tunnelGroup.rotation.z += 0.002;
 
-            // Shoot data packets past camera
+            // Animate Signal Waves
+            const time = elapsed * 0.003;
+            for(let i=0; i<waveCount; i++) {
+                const z = sPos1[i*3+2];
+                sPos1[i*3]   = Math.sin(z * 0.3 + time) * 1.5;
+                sPos1[i*3+1] = Math.cos(z * 0.4 - time * 0.8) * 1.5;
+
+                sPos2[i*3]   = Math.cos(z * 0.35 - time * 1.2) * 1.5;
+                sPos2[i*3+1] = Math.sin(z * 0.25 + time) * 1.5;
+            }
+            sigGeo1.attributes.position.needsUpdate = true;
+            sigGeo2.attributes.position.needsUpdate = true;
+
             packets.forEach(p => {
                 p.position.z += 0.8;
                 if(p.position.z > introCamera.position.z) p.position.z = -150;
             });
 
-            // FLY THROUGH: Accelerate camera forward through the tunnel
             if (elapsed > 1000) { introCamera.position.z -= 0.15; }
-            if (elapsed > 3500) { introCamera.position.z -= 0.6; } // Hyperspace speed
+            if (elapsed > 3500) { introCamera.position.z -= 0.6; } 
 
             if (elapsed > 6000) {
                 introActive = false;
@@ -674,14 +708,13 @@
         scene.fog = new THREE.FogExp2(0x030712, 0.12);
 
         const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-        camera.position.set(5, 5, 5);
+        camera.position.set(6, 5, 6);
 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         container.appendChild(renderer.domElement);
 
-        // Dynamic Lighting
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
         
@@ -693,10 +726,36 @@
         goldLight.position.set(0, 1.2, 0);
         scene.add(goldLight);
 
-        // 1. The Custom PCF-SPR Biosensor Model
+        // 1. Prominent Perspective Grid underneath the wave
+        const mainGrid = new THREE.GridHelper(60, 60, 0x06b6d4, 0x06b6d4);
+        mainGrid.position.y = -0.5; // Raised higher to be very visible
+        mainGrid.material.transparent = true;
+        mainGrid.material.opacity = 0.6; // Higher opacity for more attention
+        scene.add(mainGrid);
+
+        // 2. Base Data Ocean (EEG Wave)
+        const particleCount = 2000;
+        const waveGeo = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        
+        let w = 0;
+        const gridS = 60; const spacing = 0.18; const offset = (gridS * spacing) / 2;
+        for(let x = 0; x < gridS; x++) {
+            for(let z = 0; z < gridS; z++) {
+                if (w >= particleCount * 3) break;
+                positions[w++] = (x * spacing) - offset;
+                positions[w++] = -0.4; 
+                positions[w++] = (z * spacing) - offset;
+            }
+        }
+        waveGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const waveMat = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.04, transparent: true, opacity: 0.8 });
+        const dataWave = new THREE.Points(waveGeo, waveMat);
+        scene.add(dataWave);
+
+        // 3. The Custom PCF-SPR Biosensor Model
         const pcfGroup = new THREE.Group();
         
-        // A. Photonic Crystal Fiber Core (7 glass pillars in hex lattice)
         const fiberGeo = new THREE.CylinderGeometry(0.15, 0.15, 2.0, 16);
         const glassMat = new THREE.MeshPhysicalMaterial({ 
             color: 0x06b6d4, metalness: 0.1, roughness: 0.1, 
@@ -714,7 +773,6 @@
             pcfGroup.add(sideFiber);
         }
 
-        // B. SPR Metallic Gold Film (Outer sheath cut in half to see inside)
         const filmGeo = new THREE.CylinderGeometry(0.65, 0.65, 1.2, 32, 1, false, 0, Math.PI * 1.5);
         const filmMat = new THREE.MeshStandardMaterial({ 
             color: 0xd4af37, metalness: 1.0, roughness: 0.2, transparent: true, opacity: 0.85, side: THREE.DoubleSide
@@ -722,7 +780,6 @@
         const filmMesh = new THREE.Mesh(filmGeo, filmMat);
         pcfGroup.add(filmMesh);
 
-        // C. Particle Vortex (Representing the Plasmonic Field)
         const vortexGeo = new THREE.BufferGeometry();
         const vortexCount = 200;
         const vortexPos = new Float32Array(vortexCount * 3);
@@ -730,7 +787,7 @@
         
         for(let v=0; v<vortexCount; v++) {
             vortexAngles[v] = Math.random() * Math.PI * 2;
-            vortexPos[v*3+1] = (Math.random() - 0.5) * 1.8; // Y position spread
+            vortexPos[v*3+1] = (Math.random() - 0.5) * 1.8; 
         }
         vortexGeo.setAttribute('position', new THREE.BufferAttribute(vortexPos, 3));
         const vortexMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.05, transparent: true, opacity: 0.9 });
@@ -739,27 +796,6 @@
 
         scene.add(pcfGroup);
 
-        // 2. Background Data Ocean (EEG Wave)
-        const particleCount = 2000;
-        const waveGeo = new THREE.BufferGeometry();
-        const positions = new Float32Array(particleCount * 3);
-        
-        let w = 0;
-        const gridS = 60; const spacing = 0.18; const offset = (gridS * spacing) / 2;
-        for(let x = 0; x < gridS; x++) {
-            for(let z = 0; z < gridS; z++) {
-                if (w >= particleCount * 3) break;
-                positions[w++] = (x * spacing) - offset;
-                positions[w++] = -1.5; // Shifted way down so it doesn't block the sensor
-                positions[w++] = (z * spacing) - offset;
-            }
-        }
-        waveGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        const waveMat = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.03, transparent: true, opacity: 0.4 });
-        const dataWave = new THREE.Points(waveGeo, waveMat);
-        scene.add(dataWave);
-
-        // Controls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableZoom = false; controls.enablePan = false; controls.autoRotate = true; controls.autoRotateSpeed = 2.0;
         const clock = new THREE.Clock();
@@ -768,28 +804,27 @@
             requestAnimationFrame(animateMain);
             const time = clock.getElapsedTime();
             
+            // Gently pan the main grid
+            mainGrid.position.z = (mainGrid.position.z + 0.02) % 1;
+
             // Animate Ocean Wave
             const posAttr = waveGeo.attributes.position;
             const posArray = posAttr.array;
             for(let j = 0; j < particleCount; j++) {
                 const x = posArray[j * 3];
                 const z = posArray[j * 3 + 2];
-                posArray[j * 3 + 1] = -1.5 + Math.sin(x * 1.2 + time * 2) * 0.2 + Math.cos(z * 1.5 + time) * 0.2;
+                posArray[j * 3 + 1] = -0.4 + Math.sin(x * 1.2 + time * 2) * 0.2 + Math.cos(z * 1.5 + time) * 0.2;
             }
             posAttr.needsUpdate = true;
             
-            // Hover the Biosensor
-            pcfGroup.position.y = Math.sin(time * 1.5) * 0.1;
-            
-            // Rotate the Biosensor inner core slightly differently than the outer group
+            pcfGroup.position.y = 1.2 + Math.sin(time * 1.5) * 0.1;
             centerFiber.rotation.y -= 0.01;
 
-            // Animate Vortex Particles around the sensor
             const vortAttr = vortexGeo.attributes.position;
             const vortArray = vortAttr.array;
             for(let v = 0; v < vortexCount; v++) {
-                vortexAngles[v] += 0.05; // Spin speed
-                const radius = 0.8 + Math.sin(vortexAngles[v] * 2 + time) * 0.1; // Pulsing radius
+                vortexAngles[v] += 0.05; 
+                const radius = 0.8 + Math.sin(vortexAngles[v] * 2 + time) * 0.1; 
                 vortArray[v*3] = Math.cos(vortexAngles[v]) * radius;
                 vortArray[v*3+2] = Math.sin(vortexAngles[v]) * radius;
             }
@@ -800,7 +835,6 @@
         }
         animateMain();
 
-        // Responsive Resize
         window.addEventListener('resize', () => {
             if(introActive) {
                 introCamera.aspect = window.innerWidth / window.innerHeight;
