@@ -8,14 +8,16 @@
     <!-- Professional Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
     
-    <!-- Icons (FontAwesome & Devicon for Logos) -->
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
     
     <script>
+        // Start perfectly at the top on refresh
         if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+        window.scrollTo(0, 0);
     </script>
 
     <style>
@@ -23,7 +25,7 @@
            1. MODERN, PROFESSIONAL CSS RESET & BASE
         ----------------------------------------------------- */
         :root {
-            --bg-color: #030712; /* Slightly darker, deep lab-tech blue */
+            --bg-color: #030712; 
             --surface-color: rgba(17, 24, 39, 0.7);
             --border-color: rgba(255, 255, 255, 0.08);
             --text-main: #f9fafb;
@@ -37,10 +39,7 @@
         body, html { 
             width: 100%; color: var(--text-main); font-family: 'Inter', sans-serif;
             background-color: var(--bg-color); line-height: 1.6; overflow-x: hidden; 
-            opacity: 0; animation: fadeInPage 0.8s 0.1s forwards;
         }
-
-        @keyframes fadeInPage { to { opacity: 1; } }
 
         /* LIVE ACTIVE CIRCUIT GRID */
         .bg-grid {
@@ -51,24 +50,49 @@
             background-size: 40px 40px;
             mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
             -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 100%);
-            animation: panGrid 20s linear infinite; /* Slow flow effect */
+            animation: panGrid 20s linear infinite; 
         }
-        @keyframes panGrid {
-            0% { background-position: 0 0; }
-            100% { background-position: 40px 40px; }
-        }
+        @keyframes panGrid { 0% { background-position: 0 0; } 100% { background-position: 40px 40px; } }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         /* ----------------------------------------------------
-           2. NAVIGATION BAR
+           2. ADVANCED ELEGANT INTRO SCREEN (PURE 3D FOCUS)
+        ----------------------------------------------------- */
+        #intro-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+            background: #010308; z-index: 9999;
+            transition: opacity 1.2s ease-in-out;
+        }
+        #intro-overlay.fade-out { opacity: 0; pointer-events: none; }
+        
+        #intro-canvas-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
+
+        /* Minimal Tech HUD (Replacing giant text) */
+        .intro-hud {
+            position: absolute; bottom: 30px; left: 30px;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--accent-cyan);
+            pointer-events: none; z-index: 10; opacity: 0.7;
+        }
+        .intro-hud div { margin-bottom: 4px; overflow: hidden; white-space: nowrap; border-right: 2px solid var(--accent-cyan); animation: typing 1s steps(40, end) forwards, blink-caret 0.75s step-end infinite; width: 0; }
+        .intro-hud div:nth-child(1) { animation-delay: 0.5s; animation-fill-mode: forwards; }
+        .intro-hud div:nth-child(2) { animation-delay: 1.2s; animation-fill-mode: forwards; border-right: none;}
+        .intro-hud div:nth-child(3) { animation-delay: 1.9s; animation-fill-mode: forwards; border-right: none;}
+        
+        @keyframes typing { from { width: 0 } to { width: 100%; border-right: none; } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: var(--accent-cyan); } }
+
+        /* ----------------------------------------------------
+           3. NAVIGATION BAR
         ----------------------------------------------------- */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             background: rgba(3, 7, 18, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border-color); 
             display: flex; justify-content: center;
+            opacity: 0; animation: fadeInNav 0.5s 4.5s forwards; 
         }
+        @keyframes fadeInNav { to { opacity: 1; } }
 
         .nav-links { 
             display: flex; gap: 8px; padding: 12px 24px;
@@ -84,17 +108,15 @@
         .nav-btn:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
         .nav-btn.active { color: #60a5fa; background: rgba(59, 130, 246, 0.15); font-weight: 600;}
 
-        .main-content { padding-top: 80px; padding-bottom: 60px; }
+        .main-content { padding-top: 80px; padding-bottom: 60px; opacity: 0; animation: fadeInContent 1s 4.8s forwards; }
+        @keyframes fadeInContent { to { opacity: 1; } }
 
         .tab-section { display: none; }
         .tab-section.active { display: block; animation: fadeInTab 0.5s ease-out forwards; }
-        @keyframes fadeInTab {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInTab { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         /* ----------------------------------------------------
-           3. HOME TAB (INTRO, TICKER, 3D MODEL)
+           4. HOME TAB (INTRO, TICKER, 3D MODEL)
         ----------------------------------------------------- */
         .intro-centered {
             text-align: center; max-width: 850px; margin: 0 auto;
@@ -120,14 +142,12 @@
         .intro-centered h2 { font-size: 1.15rem; font-weight: 400; color: var(--text-muted); margin-bottom: 16px; line-height: 1.6;}
         .intro-centered h2 strong { color: var(--text-main); font-weight: 500;}
         
-        /* Social/Academic Links */
         .academic-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; }
         .academic-links a { color: var(--text-muted); font-size: 1.2rem; transition: 0.3s; }
         .academic-links a:hover { color: var(--accent-cyan); transform: translateY(-2px); }
 
         .intro-centered p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 32px; max-width: 750px;}
 
-        /* Buttons & CV */
         .btn-group { display: flex; gap: 16px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap;}
         .btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; 
@@ -141,39 +161,32 @@
         .btn-outline-cyan { background: transparent; color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
         .btn-outline-cyan:hover { background: rgba(6, 182, 212, 0.1); }
 
-        /* LIVE RESEARCH DOMAIN TICKER */
         .ticker-wrap {
             width: 100%; overflow: hidden; background: rgba(255,255,255,0.02); 
             border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);
             padding: 12px 0; margin-bottom: 20px;
         }
-        .ticker {
-            display: flex; width: max-content;
-            animation: tickerScroll 20s linear infinite;
-        }
+        .ticker { display: flex; width: max-content; animation: tickerScroll 20s linear infinite; }
         .ticker-item {
             font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent-blue);
             padding: 0 30px; letter-spacing: 1px; text-transform: uppercase;
         }
-        @keyframes tickerScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
+        @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* 3D Splash */
+        /* MAIN PAGE 3D MODEL */
         .splash-screen {
-            width: 100%; height: 450px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            width: 100%; height: 500px; display: flex; flex-direction: column; justify-content: center; align-items: center;
             position: relative; 
         }
         #three-canvas { width: 100%; height: 100%; cursor: grab; }
         #three-canvas:active { cursor: grabbing; }
         .canvas-label {
             position: absolute; bottom: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; 
-            color: rgba(255, 255, 255, 0.3); pointer-events: none; letter-spacing: 2px;
+            color: rgba(255, 255, 255, 0.3); pointer-events: none; letter-spacing: 2px; text-transform: uppercase;
         }
 
         /* ----------------------------------------------------
-           4. RESEARCHER-CENTRIC CARDS
+           5. RESEARCHER-CENTRIC CARDS
         ----------------------------------------------------- */
         .section-header { margin-bottom: 30px; display: flex; align-items: center; gap: 12px;}
         .section-header h3 { font-size: 1.75rem; font-weight: 600; color: var(--text-main); }
@@ -191,7 +204,6 @@
         
         .card h4 { font-size: 1.25rem; font-weight: 600; margin-bottom: 16px; color: var(--text-main); display: flex; align-items: center; gap: 10px;}
         
-        /* Academic Abstract Formatting inside Cards */
         .abstract-section { margin-bottom: 12px; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6;}
         .abstract-section strong { color: var(--text-main); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px;}
         
@@ -202,7 +214,6 @@
         .card li::before { content: "▹"; position: absolute; left: 0; top: 0px; color: var(--accent-blue); font-weight: bold; font-size: 1.1rem;}
         .card li strong { color: var(--text-main); font-weight: 500;}
 
-        /* Tags */
         .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.05);}
         .tag {
             font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; padding: 8px 12px; 
@@ -214,7 +225,6 @@
 
         footer { text-align: center; padding: 20px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 40px;}
 
-        /* Mobile Adjustments */
         @media (max-width: 768px) {
             .nav-links { justify-content: flex-start; padding: 12px 16px; }
             .intro-centered { padding: 40px 10px 20px 10px; }
@@ -229,6 +239,18 @@
 </head>
 <body>
 
+    <!-- 1. ADVANCED 3D ELEGANT INTRO SCREEN (PURE 3D) -->
+    <div id="intro-overlay">
+        <div id="intro-canvas-container"></div>
+        <!-- Minimal, non-distracting HUD -->
+        <div class="intro-hud">
+            <div>> SYS_BOOT: M_LEARNING_KERN</div>
+            <div>> RENDERING: PCF-SPR OPTICS</div>
+            <div>> STATUS: OK. INITIALIZING.</div>
+        </div>
+    </div>
+
+    <!-- NATIVE BACKGROUND -->
     <div class="bg-grid"></div>
 
     <!-- NAVIGATION BAR -->
@@ -259,7 +281,6 @@
                     Content Director @ JICA Grassroot &nbsp;|&nbsp; Researcher
                 </h2>
 
-                <!-- Academic/Social Links -->
                 <div class="academic-links">
                     <a href="#" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
                     <a href="#" title="GitHub"><i class="fa-brands fa-github"></i></a>
@@ -272,7 +293,7 @@
                 
                 <div class="btn-group">
                     <button class="btn btn-primary" onclick="switchTab('research')"><i class="fa-solid fa-microscope"></i> View Research</button>
-                    <!-- Download CV Button Placeholder -->
+                    <!-- Make sure to upload a file named resume.pdf to GitHub! -->
                     <a href="resume.pdf" target="_blank" class="btn btn-outline-cyan"><i class="fa-solid fa-download"></i> Download CV</a>
                 </div>
             </div>
@@ -280,48 +301,35 @@
             <!-- LIVE TICKER TAPE -->
             <div class="ticker-wrap">
                 <div class="ticker">
-                    <!-- Repeated for infinite scroll -->
-                    <div class="ticker-item">Biomedical Signal Processing</div>
-                    <div class="ticker-item">•</div>
-                    <div class="ticker-item">Machine Learning Architecture</div>
-                    <div class="ticker-item">•</div>
-                    <div class="ticker-item">Optoelectronics</div>
-                    <div class="ticker-item">•</div>
-                    <div class="ticker-item">Surface Plasmon Resonance</div>
-                    <div class="ticker-item">•</div>
-                    <div class="ticker-item">Computational Physics</div>
-                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Biomedical Signal Processing</div><div class="ticker-item">•</div>
+                    <div class="ticker-item">Machine Learning Architecture</div><div class="ticker-item">•</div>
+                    <div class="ticker-item">Optoelectronics</div><div class="ticker-item">•</div>
+                    <div class="ticker-item">Surface Plasmon Resonance</div><div class="ticker-item">•</div>
+                    <div class="ticker-item">Computational Physics</div><div class="ticker-item">•</div>
                     
-                    <div class="ticker-item">Biomedical Signal Processing</div>
-                    <div class="ticker-item">•</div>
-                    <div class="ticker-item">Machine Learning Architecture</div>
-                    <div class="ticker-item">•</div>
-                    <div class="ticker-item">Optoelectronics</div>
-                    <div class="ticker-item">•</div>
-                    <div class="ticker-item">Surface Plasmon Resonance</div>
-                    <div class="ticker-item">•</div>
-                    <div class="ticker-item">Computational Physics</div>
-                    <div class="ticker-item">•</div>
+                    <div class="ticker-item">Biomedical Signal Processing</div><div class="ticker-item">•</div>
+                    <div class="ticker-item">Machine Learning Architecture</div><div class="ticker-item">•</div>
+                    <div class="ticker-item">Optoelectronics</div><div class="ticker-item">•</div>
+                    <div class="ticker-item">Surface Plasmon Resonance</div><div class="ticker-item">•</div>
+                    <div class="ticker-item">Computational Physics</div><div class="ticker-item">•</div>
                 </div>
             </div>
 
-            <!-- 3D SPLASH SCREEN -->
+            <!-- MAIN PAGE 3D ENGINEERING SIMULATION -->
             <div class="splash-screen" id="model-section">
                 <div id="three-canvas"></div>
-                <div class="canvas-label">DRAG TO ROTATE</div>
+                <div class="canvas-label">SIMULATION: PCF-SPR OPTICAL SENSOR</div>
             </div>
 
         </section>
 
-        <!-- TAB: RESEARCH (ACADEMIC FORMAT) -->
+        <!-- TAB: RESEARCH -->
         <section id="research" class="tab-section">
             <div class="section-header">
                 <i class="fa-solid fa-network-wired"></i>
                 <h3>Current Research</h3>
             </div>
             <div class="grid-2">
-                
-                <!-- Research Card 1 -->
                 <div class="card">
                     <h4><i class="fa-solid fa-brain"></i> Alzheimer's Detection via EEG</h4>
                     <span class="status">Working Paper / Ongoing</span>
@@ -342,7 +350,6 @@
                     </div>
                 </div>
 
-                <!-- Research Card 2 -->
                 <div class="card">
                     <h4><i class="fa-solid fa-wave-square"></i> PCF SPR Biosensor</h4>
                     <span class="status">Pre-Publication</span>
@@ -362,7 +369,6 @@
                         <span class="tag"><i class="fa-solid fa-lightbulb" style="color: #f59e0b;"></i> Optoelectronics</span>
                     </div>
                 </div>
-
             </div>
         </section>
 
@@ -473,7 +479,7 @@
                         <li><strong>1st Position:</strong> Math & Physics Olympiads, 1st BNCD Online Contest 2020.</li>
                         <li><strong>1st Runner-up:</strong> JN Islam Mega Fest 2021 (Math) organized by Boson.</li>
                         <li><strong>1st Runner-up:</strong> 1st Boson Online Math and IQ Olympiad 2020.</li>
-                        <li><strong>2nd Position:</strong> VNMC Hippodrome of Mathematical Ballad 2021.</li>
+                        <li><strong>2nd Position (War of Calculus):</strong> VNMC Hippodrome of Mathematical Ballad 2021.</li>
                         <li><strong>2nd Position (Senior):</strong> Math Quiz of “Gonitbid – 2020”.</li>
                         <li><strong>3rd Position:</strong> Mega Math Fest (Higgsino) & 1st RMC Online Math Contest.</li>
                     </ul>
@@ -544,6 +550,16 @@
     
     <script>
         // --------------------------------------------------------
+        // THE CINEMATIC DATA TUNNEL FLY-THROUGH
+        // --------------------------------------------------------
+        document.addEventListener("DOMContentLoaded", () => {
+            // Intro takes ~4.5 seconds to fly through, then fades.
+            setTimeout(() => {
+                document.getElementById('intro-overlay').classList.add('fade-out');
+            }, 4600); 
+        });
+
+        // --------------------------------------------------------
         // TAB SWITCHING LOGIC (Single Page App)
         // --------------------------------------------------------
         function switchTab(tabId) {
@@ -560,118 +576,221 @@
         }
 
         // --------------------------------------------------------
-        // CINEMATIC LOAD: Jump to model, wait 1.5 sec, scroll to top
+        // SCENE 1: THE DATA TUNNEL FLY-THROUGH INTRO
         // --------------------------------------------------------
-        document.addEventListener("DOMContentLoaded", () => {
-            const modelSection = document.getElementById('model-section');
-            window.scrollTo(0, modelSection.offsetTop);
+        const introContainer = document.getElementById('intro-canvas-container');
+        const introScene = new THREE.Scene();
+        introScene.fog = new THREE.FogExp2(0x010308, 0.05); // Deep fog for tunnel depth
 
-            window.addEventListener('load', () => {
-                setTimeout(() => {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                }, 1500); 
-            });
-        });
+        const introCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        introCamera.position.z = 25; // Start far back
+
+        const introRenderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        introRenderer.setSize(window.innerWidth, window.innerHeight);
+        introRenderer.setPixelRatio(window.devicePixelRatio);
+        introContainer.appendChild(introRenderer.domElement);
+
+        // Massive Particle Tunnel
+        const tunnelCount = 4000;
+        const tunnelGeo = new THREE.BufferGeometry();
+        const tunnelPos = new Float32Array(tunnelCount * 3);
+        
+        for(let i=0; i<tunnelCount; i++) {
+            // Creates a cylindrical tunnel shape
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 2 + Math.random() * 8; // Hollow center
+            const z = (Math.random() - 0.5) * 60; // Long tunnel
+            
+            tunnelPos[i*3] = Math.cos(angle) * radius;
+            tunnelPos[i*3+1] = Math.sin(angle) * radius;
+            tunnelPos[i*3+2] = z;
+        }
+        tunnelGeo.setAttribute('position', new THREE.BufferAttribute(tunnelPos, 3));
+        const tunnelMat = new THREE.PointsMaterial({ color: 0x06b6d4, size: 0.05, transparent: true, opacity: 0.8 });
+        const tunnelMesh = new THREE.Points(tunnelGeo, tunnelMat);
+        introScene.add(tunnelMesh);
+
+        // Intro Animation Logic
+        let introActive = true;
+        let introStartTime = Date.now();
+        const overlay = document.getElementById('intro-overlay');
+
+        function animateIntro() {
+            if(!introActive) return;
+            requestAnimationFrame(animateIntro);
+            
+            let elapsed = Date.now() - introStartTime;
+            
+            // Rotate the tunnel slowly
+            tunnelMesh.rotation.z += 0.002;
+
+            // FLY THROUGH: Accelerate camera forward through the tunnel
+            if (elapsed > 1000) {
+                introCamera.position.z -= 0.15; // Move forward
+            }
+            if (elapsed > 3500) {
+                introCamera.position.z -= 0.5; // Hyperspace speed at the end
+            }
+
+            // Stop rendering intro scene to save CPU memory once hidden
+            if (elapsed > 6000) {
+                introActive = false;
+                overlay.style.display = 'none';
+            }
+
+            introRenderer.render(introScene, introCamera);
+        }
+        animateIntro();
 
         // --------------------------------------------------------
-        // ADVANCED 3D EEE PROCESSOR & DATA WAVE
+        // SCENE 2: ADVANCED PCF-SPR BIOSENSOR (HOMEPAGE)
         // --------------------------------------------------------
         const container = document.getElementById('three-canvas');
         const scene = new THREE.Scene();
-        
+        scene.fog = new THREE.FogExp2(0x030712, 0.12);
+
         const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-        camera.position.set(5, 4, 5);
+        camera.position.set(6, 5, 6);
 
         const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         container.appendChild(renderer.domElement);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        // Dynamic Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
-        const directionalLight = new THREE.DirectionalLight(0x06b6d4, 2);
-        directionalLight.position.set(5, 10, 5);
-        scene.add(directionalLight);
-        const pointLight = new THREE.PointLight(0x3b82f6, 3, 10);
-        pointLight.position.set(0, 2, 0);
-        scene.add(pointLight);
+        
+        const dirLight = new THREE.DirectionalLight(0x06b6d4, 2);
+        dirLight.position.set(5, 10, 5);
+        scene.add(dirLight);
+        
+        const goldLight = new THREE.PointLight(0xd4af37, 5, 10);
+        goldLight.position.set(0, 1.2, 0);
+        scene.add(goldLight);
 
-        const particleCount = 1500;
+        // 1. Base Data Ocean (EEG Wave)
+        const particleCount = 2000;
         const waveGeo = new THREE.BufferGeometry();
         const positions = new Float32Array(particleCount * 3);
         
-        let i = 0;
-        const gridSize = 40; 
-        const spacing = 0.15;
+        let w = 0;
+        const gridSize = 60; 
+        const spacing = 0.18;
         const offset = (gridSize * spacing) / 2;
 
         for(let x = 0; x < gridSize; x++) {
             for(let z = 0; z < gridSize; z++) {
-                if (i >= particleCount * 3) break;
-                positions[i++] = (x * spacing) - offset;
-                positions[i++] = 0; 
-                positions[i++] = (z * spacing) - offset;
+                if (w >= particleCount * 3) break;
+                positions[w++] = (x * spacing) - offset;
+                positions[w++] = 0; 
+                positions[w++] = (z * spacing) - offset;
             }
         }
         waveGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        
-        const waveMat = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.03, transparent: true, opacity: 0.6 });
+        const waveMat = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.03, transparent: true, opacity: 0.5 });
         const dataWave = new THREE.Points(waveGeo, waveMat);
         scene.add(dataWave);
 
-        const chipGroup = new THREE.Group();
-        const boardGeo = new THREE.BoxGeometry(1.4, 0.08, 1.4);
-        const boardMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.7, metalness: 0.3 });
-        const board = new THREE.Mesh(boardGeo, boardMat);
-        chipGroup.add(board);
-
-        const coreGeo = new THREE.BoxGeometry(0.6, 0.1, 0.6);
-        const coreMat = new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0x06b6d4, emissiveIntensity: 0.6, wireframe: true});
-        const core = new THREE.Mesh(coreGeo, coreMat);
-        core.position.y = 0.02;
-        chipGroup.add(core);
-
-        const pinMat = new THREE.MeshStandardMaterial({ color: 0xd4af37, roughness: 0.3, metalness: 1.0 });
-        const pinGeo = new THREE.BoxGeometry(0.04, 0.04, 0.2);
-        const numPins = 10;
-        const pinStart = -0.55;
-        const pinSpacing = 1.1 / (numPins - 1);
+        // 2. The Custom PCF-SPR Biosensor Model
+        const pcfGroup = new THREE.Group();
         
-        for(let p = 0; p < numPins; p++) {
-            const pos = pinStart + (p * pinSpacing);
-            let pinT = new THREE.Mesh(pinGeo, pinMat); pinT.position.set(pos, 0, -0.75); chipGroup.add(pinT);
-            let pinB = new THREE.Mesh(pinGeo, pinMat); pinB.position.set(pos, 0, 0.75); chipGroup.add(pinB);
-            let pinL = new THREE.Mesh(pinGeo, pinMat); pinL.rotation.y = Math.PI/2; pinL.position.set(-0.75, 0, pos); chipGroup.add(pinL);
-            let pinR = new THREE.Mesh(pinGeo, pinMat); pinR.rotation.y = Math.PI/2; pinR.position.set(0.75, 0, pos); chipGroup.add(pinR);
+        // A. Photonic Crystal Fiber Core (7 glass pillars)
+        const fiberGeo = new THREE.CylinderGeometry(0.12, 0.12, 1.8, 16);
+        const glassMat = new THREE.MeshPhysicalMaterial({ 
+            color: 0x06b6d4, metalness: 0.2, roughness: 0.1, 
+            transparent: true, opacity: 0.8, emissive: 0x06b6d4, emissiveIntensity: 0.3 
+        });
+
+        // Center fiber
+        const centerFiber = new THREE.Mesh(fiberGeo, glassMat);
+        pcfGroup.add(centerFiber);
+
+        // 6 Surrounding fibers (Hexagonal lattice)
+        for(let i=0; i<6; i++) {
+            const angle = (i / 6) * Math.PI * 2;
+            const radius = 0.28;
+            const sideFiber = new THREE.Mesh(fiberGeo, glassMat);
+            sideFiber.position.set(Math.cos(angle)*radius, 0, Math.sin(angle)*radius);
+            pcfGroup.add(sideFiber);
         }
 
-        chipGroup.position.y = 1.2;
-        scene.add(chipGroup);
+        // B. SPR Metallic Gold Film (Outer sheath)
+        const filmGeo = new THREE.CylinderGeometry(0.55, 0.55, 1.0, 32);
+        const filmMat = new THREE.MeshStandardMaterial({ 
+            color: 0xd4af37, metalness: 1.0, roughness: 0.2, transparent: true, opacity: 0.85, side: THREE.DoubleSide
+        });
+        const filmMesh = new THREE.Mesh(filmGeo, filmMat);
+        pcfGroup.add(filmMesh);
 
+        // C. Particle Vortex (Representing the Plasmonic Field)
+        const vortexGeo = new THREE.BufferGeometry();
+        const vortexCount = 300;
+        const vortexPos = new Float32Array(vortexCount * 3);
+        const vortexAngles = new Float32Array(vortexCount); // Store individual angles
+        
+        for(let v=0; v<vortexCount; v++) {
+            vortexAngles[v] = Math.random() * Math.PI * 2;
+            vortexPos[v*3+1] = (Math.random() - 0.5) * 1.5; // Y position
+        }
+        vortexGeo.setAttribute('position', new THREE.BufferAttribute(vortexPos, 3));
+        const vortexMat = new THREE.PointsMaterial({ color: 0xffffff, size: 0.04, transparent: true, opacity: 0.9 });
+        const vortexMesh = new THREE.Points(vortexGeo, vortexMat);
+        pcfGroup.add(vortexMesh);
+
+        pcfGroup.position.y = 1.2;
+        scene.add(pcfGroup);
+
+        // Controls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = false; controls.enablePan = false; controls.autoRotate = true; controls.autoRotateSpeed = 1.0;
+        controls.enableZoom = false; controls.enablePan = false; controls.autoRotate = true; controls.autoRotateSpeed = 1.5;
         const clock = new THREE.Clock();
 
-        function animate() {
-            requestAnimationFrame(animate);
+        function animateMain() {
+            requestAnimationFrame(animateMain);
             const time = clock.getElapsedTime();
             
+            // Animate Ocean Wave
             const posAttr = waveGeo.attributes.position;
             const posArray = posAttr.array;
             for(let j = 0; j < particleCount; j++) {
                 const x = posArray[j * 3];
                 const z = posArray[j * 3 + 2];
-                posArray[j * 3 + 1] = Math.sin(x * 1.5 + time * 2) * 0.15 + Math.cos(z * 2 + time) * 0.15;
+                posArray[j * 3 + 1] = Math.sin(x * 1.2 + time * 2) * 0.2 + Math.cos(z * 1.5 + time) * 0.2;
             }
             posAttr.needsUpdate = true;
-            chipGroup.position.y = 1.3 + Math.sin(time * 1.5) * 0.05;
+            
+            // Hover the Biosensor
+            pcfGroup.position.y = 1.4 + Math.sin(time * 1.5) * 0.1;
+            
+            // Rotate the Biosensor
+            pcfGroup.rotation.y -= 0.005;
+            pcfGroup.rotation.x = Math.sin(time * 0.5) * 0.1; // Gentle tilt
+
+            // Animate Vortex Particles around the sensor
+            const vortAttr = vortexGeo.attributes.position;
+            const vortArray = vortAttr.array;
+            for(let v = 0; v < vortexCount; v++) {
+                vortexAngles[v] += 0.05; // Spin speed
+                const radius = 0.7 + Math.sin(vortexAngles[v] * 2) * 0.1; // Pulsing radius
+                vortArray[v*3] = Math.cos(vortexAngles[v]) * radius;
+                vortArray[v*3+2] = Math.sin(vortexAngles[v]) * radius;
+            }
+            vortAttr.needsUpdate = true;
+
             controls.update();
             renderer.render(scene, camera);
         }
-        animate();
+        animateMain();
 
+        // Responsive Resize
         window.addEventListener('resize', () => {
-            if(container.clientWidth > 0) {
+            if(introActive) {
+                introCamera.aspect = window.innerWidth / window.innerHeight;
+                introCamera.updateProjectionMatrix();
+                introRenderer.setSize(window.innerWidth, window.innerHeight);
+            }
+            if(container.clientWidth > 0 && document.getElementById('home').classList.contains('active')) {
                 camera.aspect = container.clientWidth / container.clientHeight;
                 camera.updateProjectionMatrix();
                 renderer.setSize(container.clientWidth, container.clientHeight);
