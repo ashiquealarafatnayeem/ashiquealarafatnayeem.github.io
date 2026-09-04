@@ -49,79 +49,93 @@
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
         /* ----------------------------------------------------
-           2. SPLIT HERO SECTION
+           2. NAVIGATION BAR (TABS)
         ----------------------------------------------------- */
-        .hero { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 50px; 
-            align-items: center; 
-            padding: 120px 0 80px 0; 
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 10, 21, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color); padding: 12px 0;
+            display: flex; justify-content: center;
         }
 
-        /* CENTERED ALIGNMENT FOR THE LEFT COLUMN */
-        .hero-content-left { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: left; 
-            text-align: left; 
+        .nav-links { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; padding: 0 12px;}
+        
+        .nav-btn {
+            background: transparent; border: none; color: var(--text-muted);
+            font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 500;
+            cursor: pointer; padding: 8px 16px; border-radius: 8px; transition: all 0.3s ease;
+        }
+        .nav-btn:hover { color: var(--text-main); background: rgba(255, 255, 255, 0.05); }
+        .nav-btn.active { color: #60a5fa; background: rgba(59, 130, 246, 0.15); font-weight: 600;}
+
+        /* Offset content for fixed navbar */
+        .main-content { padding-top: 80px; padding-bottom: 60px; }
+
+        /* TAB LOGIC CSS */
+        .tab-section { display: none; }
+        .tab-section.active { display: block; animation: fadeIn 0.5s ease-out forwards; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ----------------------------------------------------
+           3. HOME TAB (3D SPLASH + CENTERED INTRO)
+        ----------------------------------------------------- */
+        .splash-screen {
+            width: 100%; height: calc(100vh - 80px); /* Full screen minus nav */
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            position: relative;
+        }
+        #three-canvas { width: 100%; height: 100%; cursor: grab; }
+        #three-canvas:active { cursor: grabbing; }
+        .canvas-label {
+            position: absolute; bottom: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; 
+            color: rgba(255, 255, 255, 0.4); pointer-events: none; letter-spacing: 2px;
+        }
+
+        .intro-centered {
+            text-align: center; max-width: 850px; margin: 0 auto;
+            padding: 80px 20px 100px 20px;
+            display: flex; flex-direction: column; align-items: center;
         }
 
         .profile-container { margin-bottom: 24px; }
-        
         .profile-img {
-            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
+            width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
             border: 2px solid var(--border-color);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 4px rgba(59, 130, 246, 0.1);
             transition: transform 0.3s ease;
         }
         .profile-img:hover { transform: scale(1.02); }
 
-        .hero h1 {
-            font-size: 3rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px;
+        .intro-centered h1 {
+            font-size: 3.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px;
             background: linear-gradient(to right, #fff, #a5b4fc);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 1.1;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1;
         }
 
-        .hero h2 { font-size: 1.15rem; font-weight: 400; color: var(--text-muted); margin-bottom: 24px; max-width: 100%; line-height: 1.6;}
-        .hero h2 strong { color: var(--text-main); font-weight: 500;}
+        .intro-centered h2 { font-size: 1.15rem; font-weight: 400; color: var(--text-muted); margin-bottom: 24px; line-height: 1.6;}
+        .intro-centered h2 strong { color: var(--text-main); font-weight: 500;}
 
-        .hero p { max-width: 90%; color: var(--text-muted); font-size: 1.05rem; margin-bottom: 32px; }
+        .intro-centered p { color: var(--text-muted); font-size: 1.1rem; margin-bottom: 32px; max-width: 750px;}
 
-        /* CENTERED BUTTONS */
+        /* BUTTONS */
         .btn-group { display: flex; gap: 16px; justify-content: center; }
-        
         .btn {
             display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; 
-            border-radius: 8px; font-weight: 500; font-size: 0.95rem; text-decoration: none; transition: 0.2s;
+            border-radius: 8px; font-weight: 500; font-size: 0.95rem; text-decoration: none; 
+            transition: 0.2s; cursor: pointer; border: none; font-family: 'Inter', sans-serif;
         }
         .btn-primary { background: var(--text-main); color: var(--bg-color); }
         .btn-primary:hover { background: #d1d5db; }
         .btn-secondary { background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--border-color); }
         .btn-secondary:hover { background: rgba(255,255,255,0.1); }
 
-        /* FLOATING 3D CANVAS (No Box/Borders) */
-        .hero-content-right { width: 100%; display: flex; justify-content: center; position: relative;}
-        
-        .canvas-window {
-            width: 100%; height: 420px; 
-            overflow: hidden; position: relative;
-        }
-        #three-canvas { width: 100%; height: 100%; cursor: grab; }
-        #three-canvas:active { cursor: grabbing; }
-        
-        .canvas-label {
-            position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%);
-            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; 
-            color: rgba(255, 255, 255, 0.4); pointer-events: none; letter-spacing: 2px;
-        }
-
         /* ----------------------------------------------------
-           3. PROFESSIONAL SECTIONS & CARDS
+           4. PROFESSIONAL SECTIONS & CARDS
         ----------------------------------------------------- */
-        section { padding: 60px 0; border-top: 1px solid var(--border-color); }
-        
         .section-header { margin-bottom: 40px; display: flex; align-items: center; gap: 12px;}
         .section-header h3 { font-size: 1.75rem; font-weight: 600; color: var(--text-main); }
         .section-header i { color: var(--accent-blue); font-size: 1.5rem; }
@@ -149,26 +163,20 @@
         .card li::before { content: "▹"; position: absolute; left: 0; top: 0px; color: var(--accent-blue); font-weight: bold; font-size: 1.1rem;}
         .card li strong { color: var(--text-main); font-weight: 500;}
 
-        /* Tags WITH OFFICIAL TRANSPARENT LOGOS */
+        /* Tags */
         .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
         .tag {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
-            padding: 8px 12px; 
-            background: rgba(255,255,255,0.06); 
-            border: 1px solid var(--border-color);
-            border-radius: 6px; color: var(--text-main);
-            display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; padding: 8px 12px; 
+            background: rgba(255,255,255,0.06); border: 1px solid var(--border-color); border-radius: 6px; 
+            color: var(--text-main); display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
         }
         .tag:hover { background: rgba(255,255,255,0.12); }
         .tag i { font-size: 1.15rem; }
 
-        footer { text-align: center; padding: 40px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+        footer { text-align: center; padding: 20px 0; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); margin-top: 40px;}
 
-        /* Mobile Responsiveness */
         @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 80px;}
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { margin-bottom: 24px;}
+            .intro-centered h1 { font-size: 2.5rem; }
             .grid-2, .grid-3 { grid-template-columns: 1fr; }
         }
     </style>
@@ -177,13 +185,33 @@
 
     <div class="bg-grid"></div>
 
-    <div class="container">
-        
-        <!-- HERO SECTION -->
-        <header class="hero">
-            <div class="hero-content-left">
+    <!-- 1. NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="nav-links">
+            <button class="nav-btn active" onclick="switchTab('home')">Home</button>
+            <button class="nav-btn" onclick="switchTab('research')">Research</button>
+            <button class="nav-btn" onclick="switchTab('experience')">Experience</button>
+            <button class="nav-btn" onclick="switchTab('skills')">Skills</button>
+            <button class="nav-btn" onclick="switchTab('achievements')">Awards</button>
+            <button class="nav-btn" onclick="switchTab('contact')">Contact</button>
+        </div>
+    </nav>
+
+    <!-- 2. MAIN TAB CONTENT -->
+    <div class="container main-content">
+
+        <!-- TAB: HOME -->
+        <section id="home" class="tab-section active">
+            <!-- Part 1: 3D Splash Screen -->
+            <div class="splash-screen">
+                <div id="three-canvas"></div>
+                <div class="canvas-label">DRAG TO ROTATE</div>
+            </div>
+
+            <!-- Part 2: Centered Intro (Scrolled to automatically) -->
+            <div class="intro-centered" id="intro-centered">
                 <div class="profile-container">
-                    <img src="profile.jpg" alt="Ashique Al Arafat Nayeem" class="profile-img" onerror="this.src='https://via.placeholder.com/140/111827/3b82f6?text=Photo'">
+                    <img src="profile.jpg" alt="Ashique Al Arafat Nayeem" class="profile-img" onerror="this.src='https://via.placeholder.com/160/111827/3b82f6?text=Photo'">
                 </div>
                 
                 <h1>Md. Ashique Al Arafat Nayeem</h1>
@@ -196,21 +224,14 @@
                 </p>
                 
                 <div class="btn-group">
-                    <a href="#research" class="btn btn-primary"><i class="fa-solid fa-microscope"></i> View Research</a>
-                    <a href="#contact" class="btn btn-secondary"><i class="fa-solid fa-envelope"></i> Contact Me</a>
+                    <button class="btn btn-primary" onclick="switchTab('research')"><i class="fa-solid fa-microscope"></i> View Research</button>
+                    <button class="btn btn-secondary" onclick="switchTab('contact')"><i class="fa-solid fa-envelope"></i> Contact Me</button>
                 </div>
             </div>
+        </section>
 
-            <div class="hero-content-right">
-                <div class="canvas-window">
-                    <div id="three-canvas"></div>
-                    <div class="canvas-label">DRAG TO ROTATE</div>
-                </div>
-            </div>
-        </header>
-
-        <!-- RESEARCH SECTION -->
-        <section id="research">
+        <!-- TAB: RESEARCH -->
+        <section id="research" class="tab-section">
             <div class="section-header">
                 <i class="fa-solid fa-network-wired"></i>
                 <h3>Current Research</h3>
@@ -240,8 +261,8 @@
             </div>
         </section>
 
-        <!-- EDUCATION & EXPERIENCE -->
-        <section>
+        <!-- TAB: EXPERIENCE -->
+        <section id="experience" class="tab-section">
             <div class="section-header">
                 <i class="fa-solid fa-briefcase"></i>
                 <h3>Education & Experience</h3>
@@ -285,8 +306,8 @@
             </div>
         </section>
 
-        <!-- SKILLS MATRIX WITH ORIGINAL TRANSPARENT LOGOS -->
-        <section>
+        <!-- TAB: SKILLS -->
+        <section id="skills" class="tab-section">
             <div class="section-header">
                 <i class="fa-solid fa-layer-group"></i>
                 <h3>Skills Matrix</h3>
@@ -333,14 +354,13 @@
             </div>
         </section>
 
-        <!-- ACHIEVEMENTS & EXTRACURRICULARS -->
-        <section id="achievements">
+        <!-- TAB: ACHIEVEMENTS -->
+        <section id="achievements" class="tab-section">
             <div class="section-header">
                 <i class="fa-solid fa-award"></i>
                 <h3>Achievements & Extra-Curriculars</h3>
             </div>
             <div class="grid-2">
-                
                 <div class="card">
                     <h4><i class="fa-solid fa-calculator"></i> Math & Physics Olympiads</h4>
                     <ul>
@@ -354,7 +374,6 @@
                         <li><strong>3rd Position:</strong> Mega Math Fest (Higgsino) & 1st RMC Online Math Contest.</li>
                     </ul>
                 </div>
-
                 <div class="card">
                     <h4><i class="fa-solid fa-flask"></i> Science, GK & IQ Success</h4>
                     <ul>
@@ -369,7 +388,6 @@
                         <li><strong>Top 10:</strong> "Contest of Wits" (9th) & "Battle of Brains" (10th) by Green University.</li>
                     </ul>
                 </div>
-
                 <div class="card">
                     <h4><i class="fa-solid fa-gavel"></i> Debate Championships</h4>
                     <ul>
@@ -383,7 +401,6 @@
                         <li><strong>Judge:</strong> Awaaz Cultural Event (Solo Debate Segment).</li>
                     </ul>
                 </div>
-
                 <div class="card">
                     <h4><i class="fa-solid fa-globe"></i> Workshops, Camps & MUN</h4>
                     <ul>
@@ -395,13 +412,12 @@
                         <li><strong>Camp:</strong> Participated in the 10-day Literature Camp of Onnonya Proyash.</li>
                     </ul>
                 </div>
-
             </div>
         </section>
 
-        <!-- CONTACT -->
-        <section id="contact">
-            <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+        <!-- TAB: CONTACT -->
+        <section id="contact" class="tab-section">
+            <div class="card" style="text-align: center; max-width: 600px; margin: 40px auto; display: flex; flex-direction: column; align-items: center;">
                 <h3 style="font-size: 1.5rem; margin-bottom: 16px; color: var(--text-main);">Let's Connect</h3>
                 <p style="margin-bottom: 24px;">Open to discussing research collaborations, ed-tech opportunities, or engineering projects.</p>
                 <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; align-items: center;">
@@ -412,16 +428,51 @@
             </div>
         </section>
 
-        <footer>
-            <p>&copy; 2026 Md. Ashique Al Arafat Nayeem. Built with modern engineering.</p>
-        </footer>
-    </div>
+    </div> <!-- End Main Content Container -->
 
-    <!-- THREE.JS IMPORTS -->
+    <footer>
+        <p>&copy; 2026 Md. Ashique Al Arafat Nayeem. Built with modern engineering.</p>
+    </footer>
+
+    <!-- SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     
     <script>
+        // --------------------------------------------------------
+        // TAB SWITCHING LOGIC (Single Page App)
+        // --------------------------------------------------------
+        function switchTab(tabId) {
+            // Remove 'active' class from all buttons and sections
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
+            
+            // Add 'active' to the clicked button and target section
+            const targetBtn = document.querySelector(`.nav-btn[onclick="switchTab('${tabId}')"]`);
+            if(targetBtn) targetBtn.classList.add('active');
+            
+            document.getElementById(tabId).classList.add('active');
+            
+            // Scroll to the top of the page smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --------------------------------------------------------
+        // 2-SECOND AUTO SCROLL ON LOAD
+        // --------------------------------------------------------
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const homeIsActive = document.getElementById('home').classList.contains('active');
+                if (homeIsActive) {
+                    const introElement = document.getElementById('intro-centered');
+                    // Get the exact position minus the navigation bar height
+                    const yOffset = -80; 
+                    const y = introElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                }
+            }, 2000); // 2000 milliseconds = 2 seconds
+        });
+
         // --------------------------------------------------------
         // ADVANCED 3D EEE PROCESSOR & DATA WAVE
         // --------------------------------------------------------
@@ -438,11 +489,9 @@
 
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
         scene.add(ambientLight);
-        
         const directionalLight = new THREE.DirectionalLight(0x06b6d4, 2);
         directionalLight.position.set(5, 10, 5);
         scene.add(directionalLight);
-        
         const pointLight = new THREE.PointLight(0x3b82f6, 3, 10);
         pointLight.position.set(0, 2, 0);
         scene.add(pointLight);
@@ -466,9 +515,7 @@
         }
         waveGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
         
-        const waveMat = new THREE.PointsMaterial({ 
-            color: 0x3b82f6, size: 0.03, transparent: true, opacity: 0.6
-        });
+        const waveMat = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.03, transparent: true, opacity: 0.6 });
         const dataWave = new THREE.Points(waveGeo, waveMat);
         scene.add(dataWave);
 
@@ -502,11 +549,7 @@
         scene.add(chipGroup);
 
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableZoom = false; 
-        controls.enablePan = false;
-        controls.autoRotate = true;
-        controls.autoRotateSpeed = 1.0;
-
+        controls.enableZoom = false; controls.enablePan = false; controls.autoRotate = true; controls.autoRotateSpeed = 1.0;
         const clock = new THREE.Clock();
 
         function animate() {
@@ -521,18 +564,19 @@
                 posArray[j * 3 + 1] = Math.sin(x * 1.5 + time * 2) * 0.15 + Math.cos(z * 2 + time) * 0.15;
             }
             posAttr.needsUpdate = true;
-
             chipGroup.position.y = 1.3 + Math.sin(time * 1.5) * 0.05;
-
             controls.update();
             renderer.render(scene, camera);
         }
         animate();
 
         window.addEventListener('resize', () => {
-            camera.aspect = container.clientWidth / container.clientHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
+            // Only update resize if the home tab is active so we don't grab 0 width/height
+            if(document.getElementById('home').classList.contains('active')) {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            }
         });
     </script>
 </body>
