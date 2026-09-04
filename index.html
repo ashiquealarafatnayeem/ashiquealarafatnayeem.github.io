@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md. Ashique Al Arafat Nayeem | Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body, html { width: 100%; height: 100%; color: #fff; background-color: #050505; overflow-x: hidden; scroll-behavior: smooth;}
+        
+        /* 3D Background Container */
+        #vanta-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+        /* Glassmorphism Styling */
+        .glass-panel {
+            background: rgba(15, 15, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+
+        /* Header / Hero */
+        header { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+        .hero-title { font-size: 3.5rem; font-weight: 700; background: -webkit-linear-gradient(#00f2fe, #4facfe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px;}
+        .hero-subtitle { font-size: 1.5rem; color: #ccc; margin-bottom: 20px; }
+        
+        .btn { display: inline-block; padding: 12px 30px; background: rgba(79, 172, 254, 0.2); border: 1px solid #4facfe; color: #4facfe; text-decoration: none; border-radius: 30px; font-weight: 600; transition: all 0.3s ease; backdrop-filter: blur(5px);}
+        .btn:hover { background: #4facfe; color: #000; box-shadow: 0 0 15px #4facfe; }
+
+        /* Section Typography */
+        h2 { font-size: 2.2rem; margin-bottom: 25px; color: #fff; border-bottom: 2px solid #4facfe; display: inline-block; padding-bottom: 5px; }
+        p, li { color: #d3d3d3; line-height: 1.7; font-size: 1.05rem; }
+        ul { margin-left: 20px; margin-top: 10px; }
+        li { margin-bottom: 8px; }
+
+        /* Grid for Cards */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+
+        /* 3D Tilt Cards */
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 25px;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+        }
+        .card h3 { font-size: 1.3rem; color: #4facfe; margin-bottom: 10px; transform: translateZ(30px); }
+        .card p, .card ul { transform: translateZ(20px); }
+
+        .tag { display: inline-block; background: rgba(79, 172, 254, 0.15); border: 1px solid rgba(79, 172, 254, 0.3); padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; margin: 4px; color: #00f2fe;}
+
+        /* Contact */
+        .contact-links a { color: #4facfe; text-decoration: none; margin-right: 20px; font-weight: 600; }
+        .contact-links a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D Background Element -->
+    <div id="vanta-canvas"></div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <header>
+            <div class="glass-panel" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare="true" data-tilt-max-glare="0.2">
+                <h1 class="hero-title">Md. Ashique Al Arafat Nayeem</h1>
+                <p class="hero-subtitle">EEE Undergraduate at BUET | Researcher | EdTech Founder</p>
+                <p style="margin-bottom: 25px; max-width: 800px;">
+                    Passionate Educator and EEE Undergraduate with a proven track record in academic excellence and public speaking. 
+                    I combine my engineering background, Olympiad-level subject mastery, and digital visualization techniques to simplify complex concepts.
+                </p>
+                <a href="#research" class="btn">View My Work</a>
+                <a href="#contact" class="btn" style="margin-left: 10px;">Contact Me</a>
+            </div>
+        </header>
+
+        <!-- Current Research Section -->
+        <section id="research" class="glass-panel">
+            <h2>Current Research</h2>
+            <div class="card" data-tilt data-tilt-max="10">
+                <h3>PCF SPR Biosensor</h3>
+                <p><strong>Status:</strong> Ongoing / Pre-Publication</p>
+                <p>Currently conducting advanced research on Photonic Crystal Fiber Surface Plasmon Resonance (PCF SPR) biosensors. Exploring highly sensitive optical detection methods utilizing computational physics, numerical modeling, and electromagnetics.</p>
+                <br>
+                <span class="tag">COMSOL Multiphysics</span>
+                <span class="tag">MATLAB</span>
+                <span class="tag">Optoelectronics</span>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section class="glass-panel">
+            <h2>Experience & Leadership</h2>
+            <div class="grid-2">
+                <div class="card" data-tilt data-tilt-max="10">
+                    <h3>EdTech & Leadership</h3>
+                    <ul>
+                        <li><strong>Contents Director</strong> at JICA Grassroot Project</li>
+                        <li><strong>Founder</strong> of With Scienceloger (Online Educational Platform leveraging digital visualization)</li>
+                        <li><strong>Ex-President</strong> of Brainiacs Club (2020-21)</li>
+                    </ul>
+                </div>
+                <div class="card" data-tilt data-tilt-max="10">
+                    <h3>Global Teaching Experience</h3>
+                    <p><strong>4+ Years Tutoring Experience</strong></p>
+                    <p>Delivering engaging, clear, and confident lessons internationally:</p>
+                    <ul>
+                        <li>Canada (Grade 7-10)</li>
+                        <li>Kuwait (Grade 9-11)</li>
+                        <li>Italy & Myanmar</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section class="glass-panel">
+            <h2>Technical Skills</h2>
+            <div style="margin-bottom: 20px;">
+                <span class="tag">C/C++</span>
+                <span class="tag">Python</span>
+                <span class="tag">MATLAB</span>
+                <span class="tag">COMSOL</span>
+                <span class="tag">AutoCAD</span>
+                <span class="tag">Arduino</span>
+                <span class="tag">PSpice</span>
+                <span class="tag">Machine Learning / AI</span>
+                <span class="tag">Manim (Animation)</span>
+            </div>
+            <h2>Creative & Soft Skills</h2>
+            <div>
+                <span class="tag">Adobe Premiere Pro & After Effects</span>
+                <span class="tag">Photoshop & Illustrator</span>
+                <span class="tag">Public Speaking & Debate</span>
+                <span class="tag">Research & Mentoring</span>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="glass-panel">
+            <h2>Select Achievements</h2>
+            <div class="grid-2">
+                <div class="card" data-tilt data-tilt-max="10">
+                    <h3>Debate Championships</h3>
+                    <ul>
+                        <li><strong>Champion:</strong> 1st Inter College National Debate Competition 2021 (organized by BTV)</li>
+                        <li><strong>Champion:</strong> NDF BD Rajshahi Zone 1st Virtual Debate Championship</li>
+                        <li><strong>Runner-up:</strong> Khulna Divisional Debate Competition 2020</li>
+                        <li>Served as a Judge at Awaaz Cultural Event</li>
+                    </ul>
+                </div>
+                <div class="card" data-tilt data-tilt-max="10">
+                    <h3>Science & Math Olympiads</h3>
+                    <ul>
+                        <li><strong>Winner:</strong> Bangladesh Mathematical Olympiad (Regional 2019 & 2021)</li>
+                        <li><strong>1st Position:</strong> Bangladesh Physics Olympiad 2021 (Regional)</li>
+                        <li><strong>Winner:</strong> National Earth Olympiad 2020 (Regional)</li>
+                        <li><em>Plus 10+ additional awards in IQ, Biology, and General Knowledge competitions.</em></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="glass-panel">
+            <h2>Let's Connect</h2>
+            <p>I am always open to discussing research collaborations, ed-tech opportunities, or engineering projects.</p>
+            <br>
+            <div class="contact-links">
+                <a href="mailto:ashiquealarafat2003@gmail.com">✉️ ashiquealarafat2003@gmail.com</a>
+                <a href="tel:+8801845919949">📞 +880 1845919949</a>
+                <span>📍 Lalbagh, Dhaka</span>
+            </div>
+        </section>
+        
+        <p style="text-align: center; color: #666; margin-bottom: 40px; font-size: 0.9rem;">
+            &copy; 2026 Md. Ashique Al Arafat Nayeem.
+        </p>
+    </div>
+
+    <!-- 3D Animation Scripts (Three.js, Vanta.js for Background, Vanilla-tilt for Cards) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    
+    <script>
+        // Initialize 3D Network Background
+        VANTA.NET({
+            el: "#vanta-canvas",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x4facfe,
+            backgroundColor: 0x050505,
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00
+        });
+
+        // Initialize 3D Tilt on Cards
+        VanillaTilt.init(document.querySelectorAll(".card"), {
+            max: 10,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.1,
+        });
+    </script>
+</body>
+</html>
